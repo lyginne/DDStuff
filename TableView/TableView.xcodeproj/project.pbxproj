@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04887C7B1637DE9F004EC5B3 /* Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04887C7A1637DE9F004EC5B3 /* Cell.m */; };
 		048F728E163772DF000BF5BC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 048F728D163772DF000BF5BC /* UIKit.framework */; };
 		048F7290163772DF000BF5BC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 048F728F163772DF000BF5BC /* Foundation.framework */; };
 		048F7292163772DF000BF5BC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 048F7291163772DF000BF5BC /* CoreGraphics.framework */; };
@@ -20,6 +21,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		04887C791637DE9F004EC5B3 /* Cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cell.h; sourceTree = "<group>"; };
+		04887C7A1637DE9F004EC5B3 /* Cell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Cell.m; sourceTree = "<group>"; };
 		048F7289163772DF000BF5BC /* TableView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TableView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		048F728D163772DF000BF5BC /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		048F728F163772DF000BF5BC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -89,6 +92,8 @@
 				048F72AE16377337000BF5BC /* MasterViewController.h */,
 				048F72AF16377337000BF5BC /* MasterViewController.m */,
 				048F72B116377376000BF5BC /* CellData.h */,
+				04887C791637DE9F004EC5B3 /* Cell.h */,
+				04887C7A1637DE9F004EC5B3 /* Cell.m */,
 				048F72B216377376000BF5BC /* CellData.m */,
 				048F72B4163773BC000BF5BC /* CellDataController.h */,
 				048F72B5163773BC000BF5BC /* CellDataController.m */,
@@ -175,6 +180,7 @@
 				048F72B016377337000BF5BC /* MasterViewController.m in Sources */,
 				048F72B316377376000BF5BC /* CellData.m in Sources */,
 				048F72B6163773BC000BF5BC /* CellDataController.m in Sources */,
+				04887C7B1637DE9F004EC5B3 /* Cell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,6 +292,7 @@
 				048F72A9163772DF000BF5BC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -28,15 +28,42 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CellWithData" rowHeight="366" id="i0F-Yo-UWY">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CellWithData" rowHeight="366" id="i0F-Yo-UWY" customClass="Cell">
                                 <rect key="frame" x="0.0" y="22" width="768" height="366"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="748" height="365"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="choiseVar" lineBreakMode="tailTruncation" minimumFontSize="10" id="8Ir-nf-I5Q">
+                                            <rect key="frame" x="36" y="59" width="146" height="59"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="strVar" lineBreakMode="tailTruncation" minimumFontSize="10" id="uMA-l4-zxn">
+                                            <rect key="frame" x="36" y="145" width="42" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <switch opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="J9W-fB-jCj">
+                                            <rect key="frame" x="36" y="229" width="79" height="27"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <accessibility key="accessibilityConfiguration">
+                                                <accessibilityTraits key="traits" none="YES"/>
+                                                <integer key="isElement" value="0"/>
+                                            </accessibility>
+                                        </switch>
+                                    </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <connections>
+                                    <outlet property="boolVar" destination="J9W-fB-jCj" id="tpE-Vk-oqa"/>
+                                    <outlet property="choiseVarString" destination="8Ir-nf-I5Q" id="h6q-Ph-njS"/>
+                                    <outlet property="strLabel" destination="uMA-l4-zxn" id="ytb-E2-z7F"/>
                                     <segue destination="B1N-W4-clC" kind="push" id="heh-NO-IZP"/>
                                 </connections>
                             </tableViewCell>
@@ -107,6 +134,14 @@
         </scene>
     </scenes>
     <classes>
+        <class className="Cell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/Cell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="boolVar" candidateClass="UISwitch"/>
+                <relationship kind="outlet" name="choiseVarString" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="strLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
         <class className="MasterViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MasterViewController.h"/>
         </class>

@@ -18,7 +18,7 @@
     //Initialise Array of data, that will be used in table
     
     _cellDataArray  = [[NSMutableArray alloc] init];
-    CellData *cellData = [[CellData alloc] initWithStringVar:@"So, I'm Alive" boolVar: true choiseVar:4];
+    CellData *cellData = [[CellData alloc] initWithStringVar:@"So, I'm Alive" boolVar: true choiseVar:2];
     [self.cellDataArray addObject:cellData];
     cellData = [[CellData alloc] initWithStringVar:@"Me to" boolVar: true choiseVar:4];
     [self.cellDataArray addObject:cellData];
