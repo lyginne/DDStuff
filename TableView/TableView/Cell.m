@@ -9,8 +9,8 @@
 #import "Cell.h"
 
 @implementation Cell
-@synthesize strLabel;
+@synthesize stringVarLabel;
 @synthesize choiseVarString;
-@synthesize boolVar;
+@synthesize boolVarSwitch;
 
 @end

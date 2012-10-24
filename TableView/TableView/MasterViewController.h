@@ -16,7 +16,4 @@
 
 @property (strong, nonatomic) CellDataController *dataController;
 
-//@property (weak, nonatomic) IBOutlet UILabel *locationLabel;
-//@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
-
 @end

@@ -10,6 +10,7 @@
 #import "CellData.h"
 #import "MasterViewController.h"
 #import "Cell.h"
+#import "EditViewController.h"
 
 #define FIRST_CHOISE 0
 #define SECOND_CHOISE 1
@@ -22,10 +23,12 @@
 - (void)awakeFromNib
 {
     //Prepairing to service
-    
-    [super awakeFromNib];
-    _dataController = [[CellDataController alloc] init];
-    
+    if (_dataController==nil)
+    {
+        [super awakeFromNib];
+        _dataController = [[CellDataController alloc] init];
+    }
+
 }
 
 #pragma mark - Table View
@@ -48,8 +51,9 @@
     
     
     CellData *cellDataAtIndex = [_dataController objectInArrayAtIndex:indexPath.row];
-    cell.strLabel.text=cellDataAtIndex.stringVar;
-    cell.boolVar.enabled=NO;
+    cell.stringVarLabel.text=cellDataAtIndex.stringVar;
+    cell.boolVarSwitch.enabled=NO;
+    cell.boolVarSwitch.on=cellDataAtIndex.boolVar;
     switch (cellDataAtIndex.choiseVar) {
         case FIRST_CHOISE:
             cell.choiseVarString.text=@"First Choise";
@@ -65,10 +69,18 @@
             cell.choiseVarString.text=@"Something went wrong";            
             break;
     }
-    //cell.boolVar.userInteractionEnabled=NO;
-    //[[cell textLabel] setText:cellDataAtIndex.stringVar];
     return cell;
 }
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+
+{
+    if ([[segue identifier] isEqualToString:@"EditCell"]) {
+        EditViewController *editViewController = [segue destinationViewController];
+        
+        editViewController.cellData = [self.dataController objectInArrayAtIndex:[self.tableView indexPathForSelectedRow].row];
+    }
+}
+
 
 
 
