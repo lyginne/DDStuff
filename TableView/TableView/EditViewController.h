@@ -17,9 +17,4 @@
 @property (retain, nonatomic) IBOutlet UITextField *strVarTextField;
 @property (retain, nonatomic) IBOutlet UISwitch *boolVarSwith;
 
-
-- (void)configureView;
-
-
-
 @end
