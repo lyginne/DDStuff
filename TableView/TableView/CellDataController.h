@@ -11,8 +11,9 @@
 @class CellData;
 
 @interface CellDataController : NSObject
-@property (nonatomic, retain) NSMutableArray *cellDataArray;
-- (NSUInteger)countOfList;
-- (CellData *)objectInArrayAtIndex:(NSUInteger)theIndex;
+//+ (NSMutableArray *) getArray;
++ (NSUInteger)countOfList;
++ (CellData *)objectInArrayAtIndex:(NSUInteger)theIndex;
++ (void) replaceInArrayAtIndex:(NSInteger)index withCell:cell;
 - (void)initializeDataList;
 @end

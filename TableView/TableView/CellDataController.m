@@ -11,17 +11,24 @@
 
 @implementation CellDataController
 
-@synthesize cellDataArray=_cellDataArray;
+static NSMutableArray *cellDataArray;
 
+
+
+//@synthesize cellDataArray=_cellDataArray;
++ (void) replaceInArrayAtIndex:(NSInteger)index withCell:(CellData *)cellData
+{
+    [cellData retain];
+    [cellDataArray replaceObjectAtIndex:index withObject:cellData];
+}
 - (void)initializeDataList {
     
-    //Initialise Array of data, that will be used in table
-    
-    _cellDataArray  = [[NSMutableArray alloc] init];
+    //Initialise Array of data, that will be used in t
+    cellDataArray  = [[NSMutableArray alloc] init];
     CellData *cellData = [[CellData alloc] initWithStringVar:@"So, I'm Alive" boolVar: true choiseVar:2];
-    [_cellDataArray addObject:cellData];
+    [cellDataArray addObject:cellData];
     cellData = [[CellData alloc] initWithStringVar:@"Me to" boolVar: false choiseVar:4];
-    [_cellDataArray addObject:cellData];
+    [cellDataArray addObject:cellData];
 }
 - (id)init {
     
@@ -33,17 +40,17 @@
     }
     return nil;
 }
-- (NSUInteger)countOfList {
++ (NSUInteger)countOfList {
     
     //Count array's elements
     
-    return [_cellDataArray count];
+    return [cellDataArray count];
 }
-- (CellData *)objectInArrayAtIndex:(NSUInteger)theIndex {
++ (CellData *)objectInArrayAtIndex:(NSUInteger)theIndex {
     
     //get object from array at index
     
-    return [_cellDataArray objectAtIndex:theIndex];
+    return [cellDataArray objectAtIndex:theIndex];
 }
 
 @end

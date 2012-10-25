@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "CellDataController.h"
 
 @implementation AppDelegate
 
@@ -21,6 +22,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    [[CellDataController alloc] init ];
     return YES;
 }
 							

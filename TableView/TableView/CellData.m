@@ -12,6 +12,7 @@
 
 @synthesize stringVar=_stringVar, boolVar=_boolVar, choiseVar=_choiseVar;
 
+
 -(id) initWithStringVar: (NSString *) stringVar boolVar: (bool) boolVar choiseVar: (int) choiseVar; {
     
     //initialize whith variables, nothing else

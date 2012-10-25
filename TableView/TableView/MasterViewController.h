@@ -14,6 +14,4 @@
 
 @interface MasterViewController : UITableViewController
 
-@property (strong, nonatomic) CellDataController *dataController;
-
 @end

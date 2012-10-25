@@ -13,7 +13,7 @@
 
 @interface EditViewController : UITableViewController
 
-@property (retain, nonatomic) CellData *cellData;
+@property (assign) NSInteger index;
 @property (retain, nonatomic) IBOutlet UITextField *strVarTextField;
 @property (retain, nonatomic) IBOutlet UISwitch *boolVarSwith;
 

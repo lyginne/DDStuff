@@ -18,17 +18,17 @@
 
 @implementation MasterViewController
 
-@synthesize dataController=_dataController;
+
 
 - (void)awakeFromNib
 {
-    //Prepairing to service
-    if (_dataController==nil)
-    {
-        [super awakeFromNib];
-        _dataController = [[CellDataController alloc] init];
-    }
+    
 
+
+}
+-(void) viewDidAppear:(BOOL)animated
+{
+    [self.tableView reloadData];
 }
 
 #pragma mark - Table View
@@ -37,7 +37,7 @@
     
     //How many rows we need?
     
-    return [self.dataController countOfList];
+    return [CellDataController countOfList];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -50,7 +50,7 @@
     Cell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     
-    CellData *cellDataAtIndex = [_dataController objectInArrayAtIndex:indexPath.row];
+    CellData *cellDataAtIndex = [CellDataController objectInArrayAtIndex:indexPath.row];
     cell.stringVarLabel.text=cellDataAtIndex.stringVar;
     cell.boolVarSwitch.enabled=NO;
     cell.boolVarSwitch.on=cellDataAtIndex.boolVar;
@@ -77,7 +77,7 @@
     if ([[segue identifier] isEqualToString:@"EditCell"]) {
         EditViewController *editViewController = [segue destinationViewController];
         
-        editViewController.cellData = [self.dataController objectInArrayAtIndex:[self.tableView indexPathForSelectedRow].row];
+        [editViewController setIndex:[self.tableView indexPathForSelectedRow].row];
     }
 }
 

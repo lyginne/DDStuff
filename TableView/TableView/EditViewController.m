@@ -8,29 +8,35 @@
 
 #import "EditViewController.h"
 #import "CellData.h"
+#import "CellDataController.h"
 
 @implementation EditViewController
 
 
-@synthesize cellData=_cellData;
+@synthesize index;
 @synthesize strVarTextField;
 @synthesize boolVarSwith;
 
 
-- (void)viewDidLoad
+- (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     //[self configureView];
-    CellData *cellData = _cellData;
     
     
-    if (cellData) {
-        strVarTextField.text=cellData.stringVar;
-        boolVarSwith.on=cellData.boolVar;
-    }
+        strVarTextField.text=[CellDataController objectInArrayAtIndex:index].stringVar ;
+        boolVarSwith.on=[CellDataController objectInArrayAtIndex:index].boolVar;
 }
-
+-(void)viewDidDisappear:(BOOL)animated
+{
+    CellData * cellData=[[CellData alloc] init ];
+    [cellData setBoolVar:boolVarSwith.on];
+    [cellData setStringVar:strVarTextField.text];
+    [cellData setChoiseVar:2];
+    [CellDataController replaceInArrayAtIndex:index withCell:cellData];
+    [cellData release];
+}
 - (void)dealloc {
     [strVarTextField release];
     [boolVarSwith release];

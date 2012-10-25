@@ -35,17 +35,17 @@
                                     <rect key="frame" x="0.0" y="0.0" width="748" height="365"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="choiseVar" lineBreakMode="tailTruncation" minimumFontSize="10" id="8Ir-nf-I5Q">
-                                            <rect key="frame" x="36" y="59" width="146" height="59"/>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="choiseVar" lineBreakMode="tailTruncation" minimumFontSize="30" id="8Ir-nf-I5Q">
+                                            <rect key="frame" x="36" y="59" width="278" height="59"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="strVar" lineBreakMode="tailTruncation" minimumFontSize="10" id="uMA-l4-zxn">
-                                            <rect key="frame" x="36" y="145" width="42" height="21"/>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="strVar" lineBreakMode="tailTruncation" minimumFontSize="30" id="uMA-l4-zxn">
+                                            <rect key="frame" x="36" y="145" width="266" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -187,6 +187,26 @@
             <point key="canvasLocation" x="511" y="-39"/>
         </scene>
     </scenes>
+    <classes>
+        <class className="Cell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/Cell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="boolVarSwitch" candidateClass="UISwitch"/>
+                <relationship kind="outlet" name="choiseVarString" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="stringVarLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="EditViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/EditViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="boolVarSwith" candidateClass="UISwitch"/>
+                <relationship kind="outlet" name="strVarTextField" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="MasterViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MasterViewController.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>
