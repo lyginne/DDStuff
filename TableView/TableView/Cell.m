@@ -12,5 +12,12 @@
 @synthesize stringVarLabel;
 @synthesize choiseVarString;
 @synthesize boolVarSwitch;
-
+-(void)dealloc
+{
+    [stringVarLabel release];
+    [choiseVarString release];
+    [boolVarSwitch release];
+    [super dealloc];
+    
+}
 @end

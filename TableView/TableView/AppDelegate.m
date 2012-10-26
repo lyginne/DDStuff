@@ -12,9 +12,11 @@
 @implementation AppDelegate
 
 @synthesize window = _window;
+@synthesize leakedArray=_leakedArray;
 
 - (void)dealloc
 {
+    [_leakedArray release];
     [_window release];
     [super dealloc];
 }
@@ -22,8 +24,10 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
-    [[CellDataController alloc] init ];
+    _leakedArray=[[CellDataController alloc] init ];
+    //[CellDataController release];
     return YES;
+    
 }
 							
 - (void)applicationWillResignActive:(UIApplication *)application
@@ -58,11 +62,6 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
-    /*
-     Called when the application is about to terminate.
-     Save data if appropriate.
-     See also applicationDidEnterBackground:.
-     */
 }
 
 @end

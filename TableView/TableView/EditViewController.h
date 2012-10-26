@@ -13,8 +13,12 @@
 
 @interface EditViewController : UITableViewController
 
-@property (assign) NSInteger index;
+
+@property (retain, nonatomic) IBOutlet UILabel *tik1;
+@property (retain, nonatomic) IBOutlet UILabel *tik2;
+@property (retain, nonatomic) IBOutlet UILabel *tik3;
 @property (retain, nonatomic) IBOutlet UITextField *strVarTextField;
 @property (retain, nonatomic) IBOutlet UISwitch *boolVarSwith;
++(void) setMasterSelectIndex:(NSUInteger) index;
 
 @end

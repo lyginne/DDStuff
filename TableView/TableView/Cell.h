@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface Cell : UITableViewCell
-@property (retain, nonatomic) IBOutlet UILabel *stringVarLabel;
-@property (retain,nonatomic) IBOutlet UISwitch *boolVarSwitch;
-@property (retain, nonatomic) IBOutlet UILabel *choiseVarString;
+@property (retain) IBOutlet UILabel *stringVarLabel;
+@property (retain) IBOutlet UISwitch *boolVarSwitch;
+@property (retain) IBOutlet UILabel *choiseVarString;
 @end

@@ -18,17 +18,10 @@
 
 @implementation MasterViewController
 
-
-
-- (void)awakeFromNib
-{
-    
-
-
-}
 -(void) viewDidAppear:(BOOL)animated
 {
     [self.tableView reloadData];
+    
 }
 
 #pragma mark - Table View
@@ -43,13 +36,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     //Attaches cell to its data
-    
-    static NSString *CellIdentifier = @"CellWithData";
-    
-    
-    Cell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    
-    
+    //NSLog(@"%u",[[CellDataController objectInArrayAtIndex:indexPath.row] retainCount]);
+    static NSString *CellIdentifier = @"CellWithData";   
+    Cell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];    
     CellData *cellDataAtIndex = [CellDataController objectInArrayAtIndex:indexPath.row];
     cell.stringVarLabel.text=cellDataAtIndex.stringVar;
     cell.boolVarSwitch.enabled=NO;
@@ -71,13 +60,12 @@
     }
     return cell;
 }
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 
 {
-    if ([[segue identifier] isEqualToString:@"EditCell"]) {
-        EditViewController *editViewController = [segue destinationViewController];
-        
-        [editViewController setIndex:[self.tableView indexPathForSelectedRow].row];
+    if ([[segue identifier] isEqualToString:@"EditCell"]) {        
+        [EditViewController setMasterSelectIndex:[self.tableView indexPathForSelectedRow].row];
     }
 }
 

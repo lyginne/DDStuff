@@ -19,7 +19,9 @@ static NSMutableArray *cellDataArray;
 + (void) replaceInArrayAtIndex:(NSInteger)index withCell:(CellData *)cellData
 {
     [cellData retain];
+    //NSLog(@"%u",[[cellDataArray objectAtIndex:index] retainCount]);
     [cellDataArray replaceObjectAtIndex:index withObject:cellData];
+    [cellData release];
 }
 - (void)initializeDataList {
     
@@ -27,8 +29,10 @@ static NSMutableArray *cellDataArray;
     cellDataArray  = [[NSMutableArray alloc] init];
     CellData *cellData = [[CellData alloc] initWithStringVar:@"So, I'm Alive" boolVar: true choiseVar:2];
     [cellDataArray addObject:cellData];
+    [cellData release];
     cellData = [[CellData alloc] initWithStringVar:@"Me to" boolVar: false choiseVar:4];
     [cellDataArray addObject:cellData];
+    [cellData release];
 }
 - (id)init {
     
@@ -52,5 +56,10 @@ static NSMutableArray *cellDataArray;
     
     return [cellDataArray objectAtIndex:theIndex];
 }
-
++(void) dealloc
+{
+    [cellDataArray release];
+    //NSLog(@"u", [cellDataArray retainCount]);
+    [super dealloc];
+}
 @end

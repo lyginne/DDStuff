@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+@class CellDataController;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
-@property (strong, nonatomic) UIWindow *window;
+@property (retain, nonatomic) UIWindow *window;
+@property (retain) CellDataController *leakedArray;
 
 @end
