@@ -51,6 +51,14 @@ static NSMutableArray *cellDataArray;
     
     self=[super init];
     [self initializeDataList];
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"parseDOM"]);
+    {
+       //parseDOM method
+    }
+    /*else
+    {
+        //simpleParse method
+    }*/
     return self;
 }
 

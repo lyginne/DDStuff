@@ -56,8 +56,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     //Attaches cell to its data
-    //NSLog(@"%u",[[CellDataController objectInArrayAtIndex:indexPath.row] retainCount]);
-    static NSString *CellIdentifier = @"CellWithData";   
+
+
+    static NSString *CellIdentifier = @"CellWithData";
     Cell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];    
     CellData *cellDataAtIndex = [CellDataArray objectInArrayAtIndex:indexPath.row];
     cell.stringVarLabel.text=cellDataAtIndex.stringVar;

@@ -19,6 +19,7 @@
 		048F72B016377337000BF5BC /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 048F72AF16377337000BF5BC /* MasterViewController.m */; };
 		048F72B316377376000BF5BC /* CellData.m in Sources */ = {isa = PBXBuildFile; fileRef = 048F72B216377376000BF5BC /* CellData.m */; };
 		048F72B6163773BC000BF5BC /* CellDataArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 048F72B5163773BC000BF5BC /* CellDataArray.m */; };
+		8491B58F163EF1DD00111059 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8491B58E163EF1DD00111059 /* Settings.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +44,7 @@
 		048F72B216377376000BF5BC /* CellData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellData.m; sourceTree = "<group>"; };
 		048F72B4163773BC000BF5BC /* CellDataArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellDataArray.h; sourceTree = "<group>"; };
 		048F72B5163773BC000BF5BC /* CellDataArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellDataArray.m; sourceTree = "<group>"; };
+		8491B58E163EF1DD00111059 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,8 +65,8 @@
 			isa = PBXGroup;
 			children = (
 				048F7293163772DF000BF5BC /* TableView */,
-				048F728C163772DF000BF5BC /* Frameworks */,
 				048F728A163772DF000BF5BC /* Products */,
+				048F728C163772DF000BF5BC /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -102,6 +104,7 @@
 				048F729F163772DF000BF5BC /* MainStoryboard.storyboard */,
 				048F72AE16377337000BF5BC /* MasterViewController.h */,
 				048F72AF16377337000BF5BC /* MasterViewController.m */,
+				8491B58E163EF1DD00111059 /* Settings.bundle */,
 				048F7294163772DF000BF5BC /* Supporting Files */,
 			);
 			path = TableView;
@@ -170,6 +173,7 @@
 			files = (
 				048F7298163772DF000BF5BC /* InfoPlist.strings in Resources */,
 				048F72A1163772DF000BF5BC /* MainStoryboard.storyboard in Resources */,
+				8491B58F163EF1DD00111059 /* Settings.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
