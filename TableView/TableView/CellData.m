@@ -15,28 +15,21 @@
 -(id) init
 {
     self=[super init];
-    if (self)
-    {
-        _stringVar=@"DefaultString";
-        _boolVar=YES;
-        _choiseVar=0;
-        return self;
-    }
-    return nil;
+    self.stringVar=@"DefaultString";
+    self.boolVar=YES;
+    self.choiseVar=0;
+    return self;
 }
 -(id) initWithStringVar: (NSString *) stringVar boolVar: (bool) boolVar choiseVar: (int) choiseVar; {
     
     //initialize whith variables, nothing else
     
     self=[super init];
-    if (self)
-    {
-        _stringVar=stringVar;
-        _boolVar=boolVar;
-        _choiseVar=choiseVar;
-        return self;
-    }
-    return nil;
+    self.stringVar=stringVar;
+    self.boolVar=boolVar;
+    self.choiseVar=choiseVar;
+    return self;
+
 }
 -(void)dealloc
 {

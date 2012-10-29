@@ -10,8 +10,6 @@
 
 #import <UIKit/UIKit.h>
 
-@class CellDataController;
-
 @interface MasterViewController : UITableViewController
 
 @end

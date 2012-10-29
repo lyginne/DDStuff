@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "CellDataController.h"
+#import "CellDataArray.h"
 #import "CellData.h"
 #import "MasterViewController.h"
 #import "Cell.h"
@@ -18,7 +18,7 @@
 
 @implementation MasterViewController
 
--(void) viewDidAppear:(BOOL)animated
+-(void) viewWillAppear:(BOOL)animated
 {
     [self.tableView reloadData];
     
@@ -30,7 +30,7 @@
     
     //How many rows we need?
     
-    return [CellDataController countOfList];
+    return [CellDataArray countOfArray];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -39,7 +39,7 @@
     //NSLog(@"%u",[[CellDataController objectInArrayAtIndex:indexPath.row] retainCount]);
     static NSString *CellIdentifier = @"CellWithData";   
     Cell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];    
-    CellData *cellDataAtIndex = [CellDataController objectInArrayAtIndex:indexPath.row];
+    CellData *cellDataAtIndex = [CellDataArray objectInArrayAtIndex:indexPath.row];
     cell.stringVarLabel.text=cellDataAtIndex.stringVar;
     cell.boolVarSwitch.enabled=NO;
     cell.boolVarSwitch.on=cellDataAtIndex.boolVar;
@@ -57,6 +57,7 @@
         default:
             cell.choiseVarString.text=@"Something went wrong";            
             break;
+            
     }
     return cell;
 }
@@ -67,6 +68,10 @@
     if ([[segue identifier] isEqualToString:@"EditCell"]) {        
         [EditViewController setMasterSelectIndex:[self.tableView indexPathForSelectedRow].row];
     }
+}
+-(void)dealloc
+{
+    [super dealloc];
 }
 
 

@@ -11,9 +11,11 @@
 #import <Foundation/Foundation.h>
 
 @interface CellData : NSObject
+
 @property (nonatomic, copy) NSString *stringVar;
 @property (nonatomic) bool boolVar;
 @property (nonatomic) int choiseVar;
+
 -(id) initWithStringVar: (NSString *) stringVar boolVar: (bool) boolVar choiseVar: (int) choiseVar;
 
 @end

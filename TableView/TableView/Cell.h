@@ -9,7 +9,9 @@
 #import <Foundation/Foundation.h>
 
 @interface Cell : UITableViewCell
+
 @property (retain) IBOutlet UILabel *stringVarLabel;
 @property (retain) IBOutlet UISwitch *boolVarSwitch;
 @property (retain) IBOutlet UILabel *choiseVarString;
+
 @end

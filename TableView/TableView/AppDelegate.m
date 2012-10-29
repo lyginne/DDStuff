@@ -7,16 +7,16 @@
 //
 
 #import "AppDelegate.h"
-#import "CellDataController.h"
+#import "CellDataArray.h"
 
 @implementation AppDelegate
 
 @synthesize window = _window;
-@synthesize leakedArray=_leakedArray;
+@synthesize cellDataArray=_cellDataArray;
 
 - (void)dealloc
 {
-    [_leakedArray release];
+    [_cellDataArray release];
     [_window release];
     [super dealloc];
 }
@@ -24,7 +24,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
-    _leakedArray=[[CellDataController alloc] init ];
+    _cellDataArray=[[CellDataArray alloc] init ];
     //[CellDataController release];
     return YES;
     

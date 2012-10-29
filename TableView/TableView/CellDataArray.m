@@ -6,26 +6,27 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "CellDataController.h"
+#import "CellDataArray.h"
 #import "CellData.h"
+@interface CellDataArray (Local)
 
-@implementation CellDataController
+- (void)initializeDataList;
+
+@end
+
+@implementation CellDataArray
 
 static NSMutableArray *cellDataArray;
 
-
-
-//@synthesize cellDataArray=_cellDataArray;
 + (void) replaceInArrayAtIndex:(NSInteger)index withCell:(CellData *)cellData
 {
-    [cellData retain];
-    //NSLog(@"%u",[[cellDataArray objectAtIndex:index] retainCount]);
     [cellDataArray replaceObjectAtIndex:index withObject:cellData];
-    [cellData release];
 }
+
 - (void)initializeDataList {
     
-    //Initialise Array of data, that will be used in t
+    //Initialise Array of data, that will be used in tableview
+    //Will be deleted, when xml will be successfully parsed
     cellDataArray  = [[NSMutableArray alloc] init];
     CellData *cellData = [[CellData alloc] initWithStringVar:@"So, I'm Alive" boolVar: true choiseVar:2];
     [cellDataArray addObject:cellData];
@@ -34,32 +35,33 @@ static NSMutableArray *cellDataArray;
     [cellDataArray addObject:cellData];
     [cellData release];
 }
+
 - (id)init {
     
     //redefine default init
     
-    if (self = [super init]) {
-        [self initializeDataList];
-        return self;
-    }
-    return nil;
+    self=[super init];
+    [self initializeDataList];
+    return self;
 }
-+ (NSUInteger)countOfList {
+
++ (NSUInteger)countOfArray {
     
     //Count array's elements
     
     return [cellDataArray count];
 }
+
 + (CellData *)objectInArrayAtIndex:(NSUInteger)theIndex {
     
     //get object from array at index
     
     return [cellDataArray objectAtIndex:theIndex];
 }
+
 +(void) dealloc
 {
     [cellDataArray release];
-    //NSLog(@"u", [cellDataArray retainCount]);
     [super dealloc];
 }
 @end

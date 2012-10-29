@@ -10,10 +10,10 @@
 
 @class CellData;
 
-@interface CellDataController : NSObject
-//+ (NSMutableArray *) getArray;
-+ (NSUInteger)countOfList;
+@interface CellDataArray : NSObject
+
++ (NSUInteger)countOfArray;
 + (CellData *)objectInArrayAtIndex:(NSUInteger)theIndex;
 + (void) replaceInArrayAtIndex:(NSInteger)index withCell:cell;
-- (void)initializeDataList;
+
 @end

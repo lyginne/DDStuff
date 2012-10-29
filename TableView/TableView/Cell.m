@@ -9,9 +9,11 @@
 #import "Cell.h"
 
 @implementation Cell
+
 @synthesize stringVarLabel;
 @synthesize choiseVarString;
 @synthesize boolVarSwitch;
+
 -(void)dealloc
 {
     [stringVarLabel release];
