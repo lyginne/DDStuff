@@ -74,7 +74,13 @@
                             <outlet property="delegate" destination="Tgh-hs-8eL" id="FGO-4t-4Yv"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="nd7-AN-ao6"/>
+                    <navigationItem key="navigationItem" id="nd7-AN-ao6">
+                        <barButtonItem key="rightBarButtonItem" title="+Add" id="OrA-FX-l2o">
+                            <connections>
+                                <segue destination="B1N-W4-clC" kind="push" identifier="AddCell" id="kY8-RJ-Elq"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1gl-pj-way" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -85,7 +91,7 @@
             <objects>
                 <tableViewController id="B1N-W4-clC" customClass="EditViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="static" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="XfX-65-wAy">
-                        <rect key="frame" x="0.0" y="64" width="768" height="1004"/>
+                        <rect key="frame" x="0.0" y="64" width="768" height="960"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="8qg-nM-y8f">
@@ -203,4 +209,7 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="kY8-RJ-Elq"/>
+    </inferredMetricsTieBreakers>
 </document>

@@ -12,8 +12,10 @@
 
 @interface CellDataArray : NSObject
 
-+ (NSUInteger)countOfArray;
-+ (CellData *)objectInArrayAtIndex:(NSUInteger)theIndex;
++ (NSUInteger) countOfArray;
++ (CellData *) objectInArrayAtIndex:(NSUInteger)theIndex;
 + (void) replaceInArrayAtIndex:(NSInteger)index withCell:cell;
++ (void) addInArrayCellData: (CellData *) cellData;
++ (void) removeInArrayAtIndex:(NSUInteger)index;
 
 @end

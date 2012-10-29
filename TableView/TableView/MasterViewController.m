@@ -18,6 +18,26 @@
 
 @implementation MasterViewController
 
+
+-(BOOL)tableView: (UITableView *) tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    // Return YES if you want the specified item to be editable.
+    return YES;
+}
+
+// Override to support editing the table view.
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        //add code here for when you hit delete
+        [CellDataArray removeInArrayAtIndex:indexPath.row];
+        [tableView reloadData];
+    }
+}
+/*- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView  editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return UITableViewCellEditingStyleDelete;
+}*/
+
+
 -(void) viewWillAppear:(BOOL)animated
 {
     [self.tableView reloadData];
@@ -67,6 +87,13 @@
 {
     if ([[segue identifier] isEqualToString:@"EditCell"]) {        
         [EditViewController setMasterSelectIndex:[self.tableView indexPathForSelectedRow].row];
+    }
+    if ([[segue identifier] isEqualToString:@"AddCell"])
+    {
+        CellData *celldata=[[CellData alloc] init];
+        [CellDataArray addInArrayCellData:celldata];
+        [EditViewController setMasterSelectIndex:[CellDataArray countOfArray]-1];
+        [celldata release];
     }
 }
 -(void)dealloc

@@ -22,6 +22,15 @@ static NSMutableArray *cellDataArray;
 {
     [cellDataArray replaceObjectAtIndex:index withObject:cellData];
 }
++(void)removeInArrayAtIndex:(NSUInteger)index
+{
+    [cellDataArray removeObjectAtIndex:index];
+}
+
++(void) addInArrayCellData: (CellData *) cellData
+{
+    [cellDataArray addObject:cellData];
+}
 
 - (void)initializeDataList {
     
@@ -31,7 +40,7 @@ static NSMutableArray *cellDataArray;
     CellData *cellData = [[CellData alloc] initWithStringVar:@"So, I'm Alive" boolVar: true choiseVar:2];
     [cellDataArray addObject:cellData];
     [cellData release];
-    cellData = [[CellData alloc] initWithStringVar:@"Me to" boolVar: false choiseVar:4];
+    cellData = [[CellData alloc] initWithStringVar:@"Me to" boolVar: false choiseVar:3];
     [cellDataArray addObject:cellData];
     [cellData release];
 }
