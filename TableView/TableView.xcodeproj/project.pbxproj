@@ -102,10 +102,10 @@
 				048F72B216377376000BF5BC /* CellData.m */,
 				048F72B4163773BC000BF5BC /* CellDataArray.h */,
 				048F72B5163773BC000BF5BC /* CellDataArray.m */,
-				848F656F16406E3100B8F281 /* GDataXMLNode.h */,
-				848F657016406E3100B8F281 /* GDataXMLNode.m */,
 				04887C7D1637ED89004EC5B3 /* EditViewController.h */,
 				04887C7E1637ED89004EC5B3 /* EditViewController.m */,
+				848F656F16406E3100B8F281 /* GDataXMLNode.h */,
+				848F657016406E3100B8F281 /* GDataXMLNode.m */,
 				048F729F163772DF000BF5BC /* MainStoryboard.storyboard */,
 				048F72AE16377337000BF5BC /* MasterViewController.h */,
 				048F72AF16377337000BF5BC /* MasterViewController.m */,
@@ -272,10 +272,11 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TableView/TableView-Prefix.pch";
+				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				INFOPLIST_FILE = "TableView/TableView-Info.plist";
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = /usr/include/libxml2;
+				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -285,10 +286,11 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TableView/TableView-Prefix.pch";
+				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				INFOPLIST_FILE = "TableView/TableView-Info.plist";
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = /usr/include/libxml2;
+				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
