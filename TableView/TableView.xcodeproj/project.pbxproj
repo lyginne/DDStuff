@@ -19,6 +19,7 @@
 		048F72B016377337000BF5BC /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 048F72AF16377337000BF5BC /* MasterViewController.m */; };
 		048F72B316377376000BF5BC /* CellData.m in Sources */ = {isa = PBXBuildFile; fileRef = 048F72B216377376000BF5BC /* CellData.m */; };
 		048F72B6163773BC000BF5BC /* CellDataArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 048F72B5163773BC000BF5BC /* CellDataArray.m */; };
+		848F657116406E3100B8F281 /* GDataXMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 848F657016406E3100B8F281 /* GDataXMLNode.m */; };
 		8491B58F163EF1DD00111059 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8491B58E163EF1DD00111059 /* Settings.bundle */; };
 /* End PBXBuildFile section */
 
@@ -44,6 +45,8 @@
 		048F72B216377376000BF5BC /* CellData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellData.m; sourceTree = "<group>"; };
 		048F72B4163773BC000BF5BC /* CellDataArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellDataArray.h; sourceTree = "<group>"; };
 		048F72B5163773BC000BF5BC /* CellDataArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellDataArray.m; sourceTree = "<group>"; };
+		848F656F16406E3100B8F281 /* GDataXMLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDataXMLNode.h; sourceTree = "<group>"; };
+		848F657016406E3100B8F281 /* GDataXMLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDataXMLNode.m; sourceTree = "<group>"; };
 		8491B58E163EF1DD00111059 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -65,8 +68,8 @@
 			isa = PBXGroup;
 			children = (
 				048F7293163772DF000BF5BC /* TableView */,
-				048F728A163772DF000BF5BC /* Products */,
 				048F728C163772DF000BF5BC /* Frameworks */,
+				048F728A163772DF000BF5BC /* Products */,
 			);
 			sourceTree = "<group>";
 		};
@@ -99,6 +102,8 @@
 				048F72B216377376000BF5BC /* CellData.m */,
 				048F72B4163773BC000BF5BC /* CellDataArray.h */,
 				048F72B5163773BC000BF5BC /* CellDataArray.m */,
+				848F656F16406E3100B8F281 /* GDataXMLNode.h */,
+				848F657016406E3100B8F281 /* GDataXMLNode.m */,
 				04887C7D1637ED89004EC5B3 /* EditViewController.h */,
 				04887C7E1637ED89004EC5B3 /* EditViewController.m */,
 				048F729F163772DF000BF5BC /* MainStoryboard.storyboard */,
@@ -128,8 +133,8 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 048F72A7163772DF000BF5BC /* Build configuration list for PBXNativeTarget "TableView" */;
 			buildPhases = (
-				048F7285163772DF000BF5BC /* Sources */,
 				048F7286163772DF000BF5BC /* Frameworks */,
+				048F7285163772DF000BF5BC /* Sources */,
 				048F7287163772DF000BF5BC /* Resources */,
 			);
 			buildRules = (
@@ -191,6 +196,7 @@
 				048F72B6163773BC000BF5BC /* CellDataArray.m in Sources */,
 				04887C7B1637DE9F004EC5B3 /* Cell.m in Sources */,
 				04887C7F1637ED89004EC5B3 /* EditViewController.m in Sources */,
+				848F657116406E3100B8F281 /* GDataXMLNode.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -267,7 +273,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TableView/TableView-Prefix.pch";
 				INFOPLIST_FILE = "TableView/TableView-Info.plist";
+				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -278,7 +286,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TableView/TableView-Prefix.pch";
 				INFOPLIST_FILE = "TableView/TableView-Info.plist";
+				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

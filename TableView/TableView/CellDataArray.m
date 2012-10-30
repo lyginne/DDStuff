@@ -40,7 +40,7 @@ static NSMutableArray *cellDataArray;
     CellData *cellData = [[CellData alloc] initWithStringVar:@"So, I'm Alive" boolVar: true choiseVar:2];
     [cellDataArray addObject:cellData];
     [cellData release];
-    cellData = [[CellData alloc] initWithStringVar:@"Me to" boolVar: false choiseVar:3];
+    cellData = [[CellData alloc] initWithStringVar:@"Me to" boolVar: false choiseVar:1];
     [cellDataArray addObject:cellData];
     [cellData release];
 }
@@ -53,6 +53,9 @@ static NSMutableArray *cellDataArray;
     [self initializeDataList];
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"parseDOM"]);
     {
+        CellData *cellData=[CellDataArray objectInArrayAtIndex:0];
+        cellData.stringVar=@"done";
+        
        //parseDOM method
     }
     /*else
