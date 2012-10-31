@@ -37,14 +37,13 @@
     GDataXMLDocument *doc = [[GDataXMLDocument alloc] initWithData:xmlData
                                                            options:0 error:&error];
     
-    //Party *party = [[[Party alloc] init] autorelease];
     NSArray *cellDataElements = [doc.rootElement elementsForName:@"CellData"];
     
-    for (GDataXMLElement *partyMember in cellDataElements) {
+    for (GDataXMLElement *cellDataElement in cellDataElements) {
         CellData *cellData = [[CellData alloc] init];
-        [cellData setStringVar:[[[partyMember  elementsForName:@"strVar"] objectAtIndex:0] stringValue]];
-        [cellData setBoolVar:[[[[partyMember elementsForName:@"boolVar"] objectAtIndex:0] stringValue] boolValue]];
-        [cellData setChoiseVar:[[[[partyMember elementsForName:@"choiseVar"] objectAtIndex:0] stringValue] integerValue]];
+        [cellData setStringVar:[[[cellDataElement  elementsForName:@"strVar"] objectAtIndex:0] stringValue]];
+        [cellData setBoolVar:[[[[cellDataElement elementsForName:@"boolVar"] objectAtIndex:0] stringValue] boolValue]];
+        [cellData setChoiseVar:[[[[cellDataElement elementsForName:@"choiseVar"] objectAtIndex:0] stringValue] integerValue]];
          [CellDataArray addInArrayCellData:cellData];
         [cellData release];
         
@@ -59,30 +58,31 @@
     
     for(CellData *cellData in [CellDataArray getArray]) {
         
-        GDataXMLElement * playerElement =
+        GDataXMLElement * cellDataElement =
         [GDataXMLNode elementWithName:@"CellData"];
-        GDataXMLElement * nameElement =
-        [GDataXMLNode elementWithName:@"strVar" stringValue:[cellData stringVar]];
-        GDataXMLElement * levelElement =
-        [GDataXMLNode elementWithName:@"boolVar" stringValue:
-         [NSString stringWithFormat:@"%@", [cellData boolVar]?@"YES":@"NO"]];
-
-        GDataXMLElement * classElement =
-        [GDataXMLNode elementWithName:@"choiseVar" stringValue:[NSString stringWithFormat:@"%d", [cellData choiseVar]]];
+        GDataXMLElement * strVarElement =
+        [GDataXMLNode elementWithName:@"strVar"
+                          stringValue:[cellData stringVar]];
+        GDataXMLElement * boolVarElement =
+        [GDataXMLNode elementWithName:@"boolVar"
+                          stringValue: [NSString stringWithFormat:@"%@", [cellData boolVar]?@"YES":@"NO"]];
+        GDataXMLElement * choiseVarElement =
+        [GDataXMLNode elementWithName:@"choiseVar"
+                          stringValue:[NSString stringWithFormat:@"%d", [cellData choiseVar]]];
         
-        [playerElement addChild:nameElement];
-        [playerElement addChild:levelElement];
-        [playerElement addChild:classElement];
-        [cellDataArrayElement addChild:playerElement];
+        [cellDataElement addChild:strVarElement];
+        [cellDataElement addChild:boolVarElement];
+        [cellDataElement addChild:choiseVarElement];
+        [cellDataArrayElement addChild:cellDataElement];
     }
     
-    GDataXMLDocument *document = [[[GDataXMLDocument alloc]
-                                   initWithRootElement:cellDataArrayElement] autorelease];
+    GDataXMLDocument *document = [[GDataXMLDocument alloc] initWithRootElement:cellDataArrayElement];
     NSData *xmlData = document.XMLData;
     
     NSString *filePath = [self dataFilePath:TRUE];
-    NSLog(@"Saving xml data to %@...", filePath);
     [xmlData writeToFile:filePath atomically:YES];
+    [xmlData release];
+    [document release];
     
 }
 
