@@ -17,5 +17,6 @@
 + (void) replaceInArrayAtIndex:(NSInteger)index withCell:cell;
 + (void) addInArrayCellData: (CellData *) cellData;
 + (void) removeInArrayAtIndex:(NSUInteger)index;
++(NSMutableArray *)getArray;
 
 @end

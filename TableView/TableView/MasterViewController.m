@@ -11,6 +11,7 @@
 #import "MasterViewController.h"
 #import "Cell.h"
 #import "EditViewController.h"
+#import "ParseCellDataArray.h"
 
 #define FIRST_CHOISE 0
 #define SECOND_CHOISE 1
@@ -30,17 +31,14 @@
         //add code here for when you hit delete
         [CellDataArray removeInArrayAtIndex:indexPath.row];
         [tableView reloadData];
+        [ParseCellDataArray saveCellDataArray];
     }
 }
-/*- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView  editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return UITableViewCellEditingStyleDelete;
-}*/
-
 
 -(void) viewWillAppear:(BOOL)animated
 {
     [self.tableView reloadData];
+    [ParseCellDataArray saveCellDataArray];
     
 }
 
@@ -84,7 +82,6 @@
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-
 {
     if ([[segue identifier] isEqualToString:@"EditCell"]) {        
         [EditViewController setMasterSelectIndex:[self.tableView indexPathForSelectedRow].row];
@@ -97,12 +94,10 @@
         [celldata release];
     }
 }
+
 -(void)dealloc
 {
     [super dealloc];
 }
-
-
-
 
 @end

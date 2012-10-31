@@ -8,6 +8,7 @@
 
 #import "CellDataArray.h"
 #import "CellData.h"
+#import "ParseCellDataArray.h"
 @interface CellDataArray (Local)
 
 - (void)initializeDataList;
@@ -17,6 +18,10 @@
 @implementation CellDataArray
 
 static NSMutableArray *cellDataArray;
++(NSMutableArray *)getArray
+{
+    return cellDataArray;
+}
 
 + (void) replaceInArrayAtIndex:(NSInteger)index withCell:(CellData *)cellData
 {
@@ -32,36 +37,22 @@ static NSMutableArray *cellDataArray;
     [cellDataArray addObject:cellData];
 }
 
-- (void)initializeDataList {
-    
-    //Initialise Array of data, that will be used in tableview
-    //Will be deleted, when xml will be successfully parsed
-    cellDataArray  = [[NSMutableArray alloc] init];
-    CellData *cellData = [[CellData alloc] initWithStringVar:@"So, I'm Alive" boolVar: true choiseVar:2];
-    [cellDataArray addObject:cellData];
-    [cellData release];
-    cellData = [[CellData alloc] initWithStringVar:@"Me to" boolVar: false choiseVar:1];
-    [cellDataArray addObject:cellData];
-    [cellData release];
-}
-
 - (id)init {
     
     //redefine default init
     
     self=[super init];
-    [self initializeDataList];
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"parseDOM"]);
+    cellDataArray  = [[NSMutableArray alloc] init];
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"parseDOM"])
     {
-        CellData *cellData=[CellDataArray objectInArrayAtIndex:0];
-        cellData.stringVar=@"done";
         
+        [ParseCellDataArray loadCellDataArray];
        //parseDOM method
     }
-    /*else
+    else
     {
         //simpleParse method
-    }*/
+    }
     return self;
 }
 
