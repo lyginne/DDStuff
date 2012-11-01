@@ -73,7 +73,6 @@
 			isa = PBXGroup;
 			children = (
 				848C77931641A19700317CB9 /* CellDataArray.xml */,
-				848C77961641A1B400317CB9 /* xml */,
 				048F7293163772DF000BF5BC /* TableView */,
 				048F728C163772DF000BF5BC /* Frameworks */,
 				048F728A163772DF000BF5BC /* Products */,
@@ -133,13 +132,6 @@
 				048F729B163772DF000BF5BC /* TableView-Prefix.pch */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		848C77961641A1B400317CB9 /* xml */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = xml;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

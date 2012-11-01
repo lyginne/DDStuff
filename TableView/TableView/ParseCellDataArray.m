@@ -44,7 +44,7 @@
         [cellData setStringVar:[[[cellDataElement  elementsForName:@"strVar"] objectAtIndex:0] stringValue]];
         [cellData setBoolVar:[[[[cellDataElement elementsForName:@"boolVar"] objectAtIndex:0] stringValue] boolValue]];
         [cellData setChoiseVar:[[[[cellDataElement elementsForName:@"choiseVar"] objectAtIndex:0] stringValue] integerValue]];
-         [CellDataArray addInArrayCellData:cellData];
+        [CellDataArray addInArrayCellData:cellData];
         [cellData release];
         
     }
@@ -81,7 +81,6 @@
     
     NSString *filePath = [self dataFilePath:TRUE];
     [xmlData writeToFile:filePath atomically:YES];
-    [xmlData release];
     [document release];
     
 }
