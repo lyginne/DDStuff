@@ -11,7 +11,7 @@
 #import "MasterViewController.h"
 #import "Cell.h"
 #import "EditViewController.h"
-#import "ParseCellDataArray.h"
+#import "OperationsWithDataSource.h"
 
 #define FIRST_CHOISE 0
 #define SECOND_CHOISE 1
@@ -31,14 +31,14 @@
         //add code here for when you hit delete
         [CellDataArray removeInArrayAtIndex:indexPath.row];
         [tableView reloadData];
-        [ParseCellDataArray saveCellDataArray];
+        [OperationsWithDataSource saveCellDataArray];
     }
 }
 
 -(void) viewWillAppear:(BOOL)animated
 {
     [self.tableView reloadData];
-    [ParseCellDataArray saveCellDataArray];
+    [OperationsWithDataSource saveCellDataArray];
     
 }
 

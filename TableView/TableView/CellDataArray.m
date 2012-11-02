@@ -8,7 +8,7 @@
 
 #import "CellDataArray.h"
 #import "CellData.h"
-#import "ParseCellDataArray.h"
+#import "OperationsWithDataSource.h"
 @interface CellDataArray (Local)
 
 - (void)initializeDataList;
@@ -43,7 +43,7 @@ static NSMutableArray *cellDataArray;
     
     self=[super init];
     cellDataArray  = [[NSMutableArray alloc] init];
-    [ParseCellDataArray loadCellDataArray];
+    [OperationsWithDataSource loadCellDataArray];
     return self;
 }
 

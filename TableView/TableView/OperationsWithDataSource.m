@@ -6,12 +6,12 @@
 //
 //
 
-#import "ParseCellDataArray.h"
+#import "OperationsWithDataSource.h"
 #import "CellDataArray.h"
 #import "GDataXMLNode.h"
 #import "CellData.h"
 
-@implementation ParseCellDataArray
+@implementation OperationsWithDataSource
 
 +(void)loadCellDataArrayDOM:(NSData *) xmlData {
     NSError *error;
@@ -55,7 +55,7 @@
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"parseDOM"])
     {
         
-        [ParseCellDataArray loadCellDataArrayDOM:xmlData];
+        [OperationsWithDataSource loadCellDataArrayDOM:xmlData];
         //parseDOM method
     }
     else
@@ -99,7 +99,7 @@
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"parseDOM"])
     {
         //parseDOM        
-         [ParseCellDataArray saveCellDataArrayDOM];
+         [OperationsWithDataSource saveCellDataArrayDOM];
     }
     else
     {

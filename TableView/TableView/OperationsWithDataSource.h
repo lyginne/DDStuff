@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface ParseCellDataArray : NSObject
+@interface OperationsWithDataSource : NSObject
 
 + (void)loadCellDataArray;
 + (void)saveCellDataArray;
