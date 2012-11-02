@@ -31,14 +31,14 @@
         //add code here for when you hit delete
         [CellDataArray removeInArrayAtIndex:indexPath.row];
         [tableView reloadData];
-        [OperationsWithDataSource saveCellDataArray];
+        [OperationsWithDataSource saveData];
     }
 }
 
 -(void) viewWillAppear:(BOOL)animated
 {
     [self.tableView reloadData];
-    [OperationsWithDataSource saveCellDataArray];
+    [OperationsWithDataSource saveData];
     
 }
 

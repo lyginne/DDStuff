@@ -43,7 +43,7 @@ static NSMutableArray *cellDataArray;
     
     self=[super init];
     cellDataArray  = [[NSMutableArray alloc] init];
-    [OperationsWithDataSource loadCellDataArray];
+    [OperationsWithDataSource loadData];
     return self;
 }
 

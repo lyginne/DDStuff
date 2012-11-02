@@ -10,7 +10,7 @@
 
 @interface OperationsWithDataSource : NSObject
 
-+ (void)loadCellDataArray;
-+ (void)saveCellDataArray;
++ (void)loadData;
++ (void)saveData;
 
 @end

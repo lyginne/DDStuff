@@ -48,7 +48,7 @@
     
 }
 
-+ (void)loadCellDataArray {
++ (void)loadData {
     
     NSString *filePath = [self dataFilePath:FALSE];
     NSData *xmlData = [[NSMutableData alloc] initWithContentsOfFile:filePath];
@@ -95,7 +95,7 @@
     [document release];
 
 }
-+ (void)saveCellDataArray {
++ (void)saveData {
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"parseDOM"])
     {
         //parseDOM        
