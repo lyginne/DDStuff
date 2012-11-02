@@ -13,26 +13,7 @@
 
 @implementation ParseCellDataArray
 
-+ (NSString *)dataFilePath:(BOOL)forSave {
-    
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
-                                                         NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *documentsPath = [documentsDirectory
-                               stringByAppendingPathComponent:@"CellDataArray.xml"];
-    if (forSave ||
-        [[NSFileManager defaultManager] fileExistsAtPath:documentsPath]) {
-        return documentsPath;
-    } else {
-        return [[NSBundle mainBundle] pathForResource:@"CellDataArray" ofType:@"xml"];
-    }
-    
-}
-
-+ (void)loadCellDataArray {
-    
-    NSString *filePath = [self dataFilePath:FALSE];
-    NSData *xmlData = [[NSMutableData alloc] initWithContentsOfFile:filePath];
++(void)loadCellDataArrayDOM:(NSData *) xmlData {
     NSError *error;
     GDataXMLDocument *doc = [[GDataXMLDocument alloc] initWithData:xmlData
                                                            options:0 error:&error];
@@ -52,8 +33,38 @@
     [doc release];
     [xmlData release];
 }
-+ (void)saveCellDataArray {
+
++ (NSString *)dataFilePath:(BOOL)forSave {
     
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *documentsPath = [documentsDirectory stringByAppendingPathComponent:@"CellDataArray.xml"];
+    if (forSave ||
+        [[NSFileManager defaultManager] fileExistsAtPath:documentsPath]) {
+        return documentsPath;
+    } else {
+        return [[NSBundle mainBundle] pathForResource:@"CellDataArray" ofType:@"xml"];
+    }
+    
+}
+
++ (void)loadCellDataArray {
+    
+    NSString *filePath = [self dataFilePath:FALSE];
+    NSData *xmlData = [[NSMutableData alloc] initWithContentsOfFile:filePath];
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"parseDOM"])
+    {
+        
+        [ParseCellDataArray loadCellDataArrayDOM:xmlData];
+        //parseDOM method
+    }
+    else
+    {
+        //simpleParse method
+    }
+    
+}
++(void) saveCellDataArrayDOM {
     GDataXMLElement * cellDataArrayElement = [GDataXMLNode elementWithName:@"CellDataArray"];
     
     for(CellData *cellData in [CellDataArray getArray]) {
@@ -82,6 +93,18 @@
     NSString *filePath = [self dataFilePath:TRUE];
     [xmlData writeToFile:filePath atomically:YES];
     [document release];
+
+}
++ (void)saveCellDataArray {
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"parseDOM"])
+    {
+        //parseDOM        
+         [ParseCellDataArray saveCellDataArrayDOM];
+    }
+    else
+    {
+        //simpleParse method
+    }
     
 }
 

@@ -43,16 +43,7 @@ static NSMutableArray *cellDataArray;
     
     self=[super init];
     cellDataArray  = [[NSMutableArray alloc] init];
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"parseDOM"])
-    {
-        
-        [ParseCellDataArray loadCellDataArray];
-       //parseDOM method
-    }
-    else
-    {
-        //simpleParse method
-    }
+    [ParseCellDataArray loadCellDataArray];
     return self;
 }
 
