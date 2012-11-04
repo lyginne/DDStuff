@@ -13,7 +13,11 @@
 
 @implementation OperationsWithDataSource
 
-+(void)loadCellDataArrayDOM:(NSData *) xmlData {
++(void)loadCellDataArrayDOM{
+    
+    NSLog(@"%d",[[NSUserDefaults standardUserDefaults] integerForKey:@"data_source"]);
+    NSString *filePath = [self dataFilePath:FALSE];
+    NSData *xmlData = [[NSMutableData alloc] initWithContentsOfFile:filePath];
     NSError *error;
     GDataXMLDocument *doc = [[GDataXMLDocument alloc] initWithData:xmlData
                                                            options:0 error:&error];
@@ -50,19 +54,20 @@
 
 + (void)loadData {
     
-    NSString *filePath = [self dataFilePath:FALSE];
-    NSData *xmlData = [[NSMutableData alloc] initWithContentsOfFile:filePath];
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"parseDOM"])
-    {
-        
-        [OperationsWithDataSource loadCellDataArrayDOM:xmlData];
-        //parseDOM method
-    }
-    else
-    {
-        //simpleParse method
-    }
     
+    switch ([[NSUserDefaults standardUserDefaults] integerForKey:@"data_source"]) {
+        case 0:
+            //SQL
+            break;
+            
+        case 1:
+            //parseDefault
+            break;
+            
+        case 2:
+            //parseDOM
+            [OperationsWithDataSource loadCellDataArrayDOM];
+    }    
 }
 +(void) saveCellDataArrayDOM {
     GDataXMLElement * cellDataArrayElement = [GDataXMLNode elementWithName:@"CellDataArray"];
@@ -96,14 +101,18 @@
 
 }
 + (void)saveData {
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"parseDOM"])
-    {
-        //parseDOM        
-         [OperationsWithDataSource saveCellDataArrayDOM];
-    }
-    else
-    {
-        //simpleParse method
+    switch ([[NSUserDefaults standardUserDefaults] integerForKey:@"data_source"]) {
+        case 0:
+            //SQL
+            break;
+            
+        case 1:
+            //parseDefault
+            break;
+            
+        case 2:
+            //parseDOM
+            [OperationsWithDataSource saveCellDataArrayDOM];
     }
     
 }
