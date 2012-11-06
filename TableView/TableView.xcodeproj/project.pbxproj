@@ -21,6 +21,7 @@
 		048F72B6163773BC000BF5BC /* CellDataArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 048F72B5163773BC000BF5BC /* CellDataArray.m */; };
 		848C77941641A19700317CB9 /* CellDataArray.xml in Resources */ = {isa = PBXBuildFile; fileRef = 848C77931641A19700317CB9 /* CellDataArray.xml */; };
 		848C77991641A22A00317CB9 /* OperationsWithDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 848C77981641A22A00317CB9 /* OperationsWithDataSource.m */; };
+		848E34D716493B2F00E8547A /* EditDateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 848E34D616493B2F00E8547A /* EditDateViewController.m */; };
 		848F657116406E3100B8F281 /* GDataXMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 848F657016406E3100B8F281 /* GDataXMLNode.m */; };
 		8491B58F163EF1DD00111059 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8491B58E163EF1DD00111059 /* Settings.bundle */; };
 /* End PBXBuildFile section */
@@ -50,6 +51,8 @@
 		848C77931641A19700317CB9 /* CellDataArray.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = CellDataArray.xml; path = ../../../../Desktop/CellDataArray.xml; sourceTree = "<group>"; };
 		848C77971641A22A00317CB9 /* OperationsWithDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OperationsWithDataSource.h; sourceTree = "<group>"; };
 		848C77981641A22A00317CB9 /* OperationsWithDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OperationsWithDataSource.m; sourceTree = "<group>"; };
+		848E34D516493B2F00E8547A /* EditDateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditDateViewController.h; sourceTree = "<group>"; };
+		848E34D616493B2F00E8547A /* EditDateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditDateViewController.m; sourceTree = "<group>"; };
 		848F656F16406E3100B8F281 /* GDataXMLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDataXMLNode.h; sourceTree = "<group>"; };
 		848F657016406E3100B8F281 /* GDataXMLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDataXMLNode.m; sourceTree = "<group>"; };
 		8491B58E163EF1DD00111059 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
@@ -133,6 +136,8 @@
 			children = (
 				04887C791637DE9F004EC5B3 /* Cell.h */,
 				04887C7A1637DE9F004EC5B3 /* Cell.m */,
+				848E34D516493B2F00E8547A /* EditDateViewController.h */,
+				848E34D616493B2F00E8547A /* EditDateViewController.m */,
 				04887C7D1637ED89004EC5B3 /* EditViewController.h */,
 				04887C7E1637ED89004EC5B3 /* EditViewController.m */,
 				048F72AE16377337000BF5BC /* MasterViewController.h */,
@@ -247,6 +252,7 @@
 				04887C7F1637ED89004EC5B3 /* EditViewController.m in Sources */,
 				848F657116406E3100B8F281 /* GDataXMLNode.m in Sources */,
 				848C77991641A22A00317CB9 /* OperationsWithDataSource.m in Sources */,
+				848E34D716493B2F00E8547A /* EditDateViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

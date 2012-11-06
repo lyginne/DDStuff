@@ -15,7 +15,8 @@
 @property (nonatomic, copy) NSString *stringVar;
 @property (nonatomic) bool boolVar;
 @property (nonatomic) int choiseVar;
+@property (nonatomic, copy) NSDate *date;
 
--(id) initWithStringVar: (NSString *) stringVar boolVar: (bool) boolVar choiseVar: (int) choiseVar;
+-(id) initWithStringVar: (NSString *) stringVar boolVar: (bool) boolVar choiseVar: (int) choiseVar date: (NSDate *) date;
 
 @end

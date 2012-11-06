@@ -10,17 +10,29 @@
 #import "CellData.h"
 #import "CellDataArray.h"
 
-@interface EditViewController (locals)
-
-- (void)placeTiksAsNeededForChoise: (NSUInteger) choise;
-
-@end
-
-@implementation EditViewController
+@implementation EditViewController {
+    NSDate * _date;
+}
 static NSInteger masterSelectIndex, editSelectIndexRow;
+
 
 @synthesize strVarTextField;
 @synthesize boolVarSwith;
+
+-(void)renewTitleOnButton{
+    NSDateFormatter *dateFormat=[[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"yyyy-MM-dd"];
+    [_button setTitle:[dateFormat stringFromDate:_date]forState:UIControlStateNormal];
+    [dateFormat release];
+}
+-(void)setDate:(NSDate *) date{
+    _date=date;
+    [self renewTitleOnButton];
+}
+-(NSDate *) getDate{
+    
+    return _date;
+}
 
 +(void) setMasterSelectIndex:(NSUInteger) index
 {
@@ -34,6 +46,10 @@ static NSInteger masterSelectIndex, editSelectIndexRow;
     strVarTextField.text=[CellDataArray objectInArrayAtIndex:masterSelectIndex].stringVar ;
     boolVarSwith.on=[CellDataArray objectInArrayAtIndex:masterSelectIndex ].boolVar;
     editSelectIndexRow=[CellDataArray objectInArrayAtIndex:masterSelectIndex].choiseVar;
+    _date=[CellDataArray objectInArrayAtIndex:masterSelectIndex].date;
+    [self renewTitleOnButton];
+
+    
 }                                  
                             
                                    
@@ -43,6 +59,7 @@ static NSInteger masterSelectIndex, editSelectIndexRow;
     [cellData setBoolVar:boolVarSwith.on];
     [cellData setStringVar:strVarTextField.text];
     [cellData setChoiseVar:editSelectIndexRow];
+    [cellData setDate:_date];
     [CellDataArray replaceInArrayAtIndex:masterSelectIndex withCell:cellData];
     [cellData release];
     
@@ -52,6 +69,7 @@ static NSInteger masterSelectIndex, editSelectIndexRow;
     [self setStrVarTextField:nil];
     [self setBoolVarSwith:nil];
     [self setTableView:nil];
+    [self setDate:nil];
     [super viewDidUnload];
 }
 
@@ -78,8 +96,14 @@ static NSInteger masterSelectIndex, editSelectIndexRow;
 {
     [strVarTextField release];
     [boolVarSwith release];
-
+    [_date release];
     [super dealloc];
+}
+
+-(void)prepareForSegue:(UIStoryboardPopoverSegue *)segue sender:(id)sender{
+    if([[segue identifier] isEqualToString:@"editDatePopover"]){
+        [[segue destinationViewController]setDelegate:self];
+    }
 }
 
 @end

@@ -14,4 +14,5 @@
 @property (retain) IBOutlet UISwitch *boolVarSwitch;
 @property (retain) IBOutlet UILabel *choiseVarString;
 
+
 @end

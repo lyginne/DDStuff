@@ -10,7 +10,7 @@
 
 @implementation CellData
 
-@synthesize stringVar=_stringVar, boolVar=_boolVar, choiseVar=_choiseVar;
+@synthesize stringVar=_stringVar, boolVar=_boolVar, choiseVar=_choiseVar, date=_date;
 
 -(id) init
 {
@@ -18,9 +18,10 @@
     self.stringVar=@"DefaultString";
     self.boolVar=YES;
     self.choiseVar=0;
+    self.date=[NSDate dateWithTimeIntervalSince1970:0];
     return self;
 }
--(id) initWithStringVar: (NSString *) stringVar boolVar: (bool) boolVar choiseVar: (int) choiseVar; {
+-(id) initWithStringVar: (NSString *) stringVar boolVar: (bool) boolVar choiseVar: (int) choiseVar date: (NSDate * ) date; {
     
     //initialize whith variables, nothing else
     
@@ -28,6 +29,7 @@
     self.stringVar=stringVar;
     self.boolVar=boolVar;
     self.choiseVar=choiseVar;
+    self.date=date;
     return self;
 
 }
