@@ -29,6 +29,10 @@
         [cellData setStringVar:[[[cellDataElement  elementsForName:@"strVar"] objectAtIndex:0] stringValue]];
         [cellData setBoolVar:[[[[cellDataElement elementsForName:@"boolVar"] objectAtIndex:0] stringValue] boolValue]];
         [cellData setChoiseVar:[[[[cellDataElement elementsForName:@"choiseVar"] objectAtIndex:0] stringValue] integerValue]];
+        NSDateFormatter *dateFormat=[[NSDateFormatter alloc] init];
+        [dateFormat setDateFormat:@"yyyy-MM-dd"];
+        //[dateFormat dateFromString:[[[cellDataElement elementsForName:@"date"] objectAtIndex:0] stringValue]];
+        [cellData setDate:[dateFormat dateFromString:[[[cellDataElement elementsForName:@"date"] objectAtIndex:0] stringValue]]];
         [CellDataArray addInArrayCellData:cellData];
         [cellData release];
         
@@ -44,7 +48,7 @@
     NSString *documentsDirectory = [paths objectAtIndex:0];
     NSString *documentsPath = [documentsDirectory stringByAppendingPathComponent:@"CellDataArray.xml"];
     if (forSave ||
-        [[NSFileManager defaultManager] fileExistsAtPath:documentsPath]) {
+       [[NSFileManager defaultManager] fileExistsAtPath:documentsPath]) {
         return documentsPath;
     } else {
         return [[NSBundle mainBundle] pathForResource:@"CellDataArray" ofType:@"xml"];
@@ -85,10 +89,16 @@
         GDataXMLElement * choiseVarElement =
         [GDataXMLNode elementWithName:@"choiseVar"
                           stringValue:[NSString stringWithFormat:@"%d", [cellData choiseVar]]];
+        NSDateFormatter *dateFormat=[[NSDateFormatter alloc] init];
+        [dateFormat setDateFormat:@"yyyy-MM-dd"];
+        GDataXMLElement * dateElement =
+        [GDataXMLNode elementWithName:@"date"
+                          stringValue:[dateFormat stringFromDate:[cellData date]]];
         
         [cellDataElement addChild:strVarElement];
         [cellDataElement addChild:boolVarElement];
         [cellDataElement addChild:choiseVarElement];
+        [cellDataElement addChild:dateElement];
         [cellDataArrayElement addChild:cellDataElement];
     }
     

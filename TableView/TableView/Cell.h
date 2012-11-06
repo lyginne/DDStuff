@@ -13,6 +13,7 @@
 @property (retain) IBOutlet UILabel *stringVarLabel;
 @property (retain) IBOutlet UISwitch *boolVarSwitch;
 @property (retain) IBOutlet UILabel *choiseVarString;
+@property (retain) IBOutlet UILabel *dateLabel;
 
 
 @end
