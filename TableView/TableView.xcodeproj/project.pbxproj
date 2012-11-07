@@ -19,7 +19,8 @@
 		048F72B016377337000BF5BC /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 048F72AF16377337000BF5BC /* MasterViewController.m */; };
 		048F72B316377376000BF5BC /* CellData.m in Sources */ = {isa = PBXBuildFile; fileRef = 048F72B216377376000BF5BC /* CellData.m */; };
 		048F72B6163773BC000BF5BC /* CellDataArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 048F72B5163773BC000BF5BC /* CellDataArray.m */; };
-		848C77941641A19700317CB9 /* CellDataArray.xml in Resources */ = {isa = PBXBuildFile; fileRef = 848C77931641A19700317CB9 /* CellDataArray.xml */; };
+		04911AD0164A7539002EFB74 /* DefaultParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04911ACF164A7539002EFB74 /* DefaultParserDelegate.m */; };
+		04911AD6164A83C6002EFB74 /* CellDataArray.xml in Resources */ = {isa = PBXBuildFile; fileRef = 04911AD5164A83C6002EFB74 /* CellDataArray.xml */; };
 		848C77991641A22A00317CB9 /* OperationsWithDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 848C77981641A22A00317CB9 /* OperationsWithDataSource.m */; };
 		848E34D716493B2F00E8547A /* EditDateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 848E34D616493B2F00E8547A /* EditDateViewController.m */; };
 		848F657116406E3100B8F281 /* GDataXMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 848F657016406E3100B8F281 /* GDataXMLNode.m */; };
@@ -48,7 +49,9 @@
 		048F72B216377376000BF5BC /* CellData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellData.m; sourceTree = "<group>"; };
 		048F72B4163773BC000BF5BC /* CellDataArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellDataArray.h; sourceTree = "<group>"; };
 		048F72B5163773BC000BF5BC /* CellDataArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellDataArray.m; sourceTree = "<group>"; };
-		848C77931641A19700317CB9 /* CellDataArray.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = CellDataArray.xml; path = ../../../../Desktop/CellDataArray.xml; sourceTree = "<group>"; };
+		04911ACE164A7538002EFB74 /* DefaultParserDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultParserDelegate.h; sourceTree = "<group>"; };
+		04911ACF164A7539002EFB74 /* DefaultParserDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DefaultParserDelegate.m; sourceTree = "<group>"; };
+		04911AD5164A83C6002EFB74 /* CellDataArray.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = CellDataArray.xml; path = ../../../../../Desktop/CellDataArray.xml; sourceTree = "<group>"; };
 		848C77971641A22A00317CB9 /* OperationsWithDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OperationsWithDataSource.h; sourceTree = "<group>"; };
 		848C77981641A22A00317CB9 /* OperationsWithDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OperationsWithDataSource.m; sourceTree = "<group>"; };
 		848E34D516493B2F00E8547A /* EditDateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditDateViewController.h; sourceTree = "<group>"; };
@@ -160,11 +163,13 @@
 		841DF1EC1644402B00298B50 /* Parsers etc */ = {
 			isa = PBXGroup;
 			children = (
-				848C77931641A19700317CB9 /* CellDataArray.xml */,
+				04911AD5164A83C6002EFB74 /* CellDataArray.xml */,
 				848F656F16406E3100B8F281 /* GDataXMLNode.h */,
 				848F657016406E3100B8F281 /* GDataXMLNode.m */,
 				848C77971641A22A00317CB9 /* OperationsWithDataSource.h */,
 				848C77981641A22A00317CB9 /* OperationsWithDataSource.m */,
+				04911ACE164A7538002EFB74 /* DefaultParserDelegate.h */,
+				04911ACF164A7539002EFB74 /* DefaultParserDelegate.m */,
 			);
 			name = "Parsers etc";
 			sourceTree = "<group>";
@@ -232,7 +237,7 @@
 				048F7298163772DF000BF5BC /* InfoPlist.strings in Resources */,
 				048F72A1163772DF000BF5BC /* MainStoryboard.storyboard in Resources */,
 				8491B58F163EF1DD00111059 /* Settings.bundle in Resources */,
-				848C77941641A19700317CB9 /* CellDataArray.xml in Resources */,
+				04911AD6164A83C6002EFB74 /* CellDataArray.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -253,6 +258,7 @@
 				848F657116406E3100B8F281 /* GDataXMLNode.m in Sources */,
 				848C77991641A22A00317CB9 /* OperationsWithDataSource.m in Sources */,
 				848E34D716493B2F00E8547A /* EditDateViewController.m in Sources */,
+				04911AD0164A7539002EFB74 /* DefaultParserDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

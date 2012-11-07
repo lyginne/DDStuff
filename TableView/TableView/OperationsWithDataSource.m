@@ -10,6 +10,7 @@
 #import "CellDataArray.h"
 #import "GDataXMLNode.h"
 #import "CellData.h"
+#import "DefaultParserDelegate.h"
 
 @implementation OperationsWithDataSource
 
@@ -66,6 +67,7 @@
             
         case 1:
             //parseDefault
+            [OperationsWithDataSource loadCellDataArrayDefault];
             break;
             
         case 2:
@@ -126,5 +128,76 @@
     }
     
 }
+
+
+
+// -----------------------------DefaultParse------------------
+
+
++(void) loadCellDataArrayDefault
+{
+    
+    
+    
+    
+    NSString *filepath = [self dataFilePath:FALSE];
+    
+    // NSString *filepath = @"/Users/mac/Desktop/CellDataArray.xml";
+    NSData *data = [NSData dataWithContentsOfFile:filepath];
+    NSXMLParser *nsXmlParser = [[NSXMLParser alloc] initWithData:data];
+    DefaultParserDelegate *parser = [[DefaultParserDelegate alloc]initXmlParser];
+    [nsXmlParser setDelegate:parser];
+    
+    
+    //parsing..
+    
+    BOOL succes = [nsXmlParser parse];
+    
+    if (succes)
+    {
+        NSLog(@"NO ERRORS - %d cells succesfully parsed", [parser countOfCells]);
+    }
+    
+    else
+    {
+        NSLog(@"Error parsing document!");
+        NSLog(@"Error - %@", parser.error);
+    }
+    
+    
+    [parser release];
+    [nsXmlParser release];
+    
+
+    
+    
+    
+}
+
+
+
++(void) saveCellDataArrayDefault
+{
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @end
