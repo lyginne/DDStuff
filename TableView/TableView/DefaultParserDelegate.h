@@ -15,6 +15,7 @@
 // string to hold element value
 NSMutableString *currentElementValue;
 
+    
     // cell obj
     CellData *cell;
     
@@ -26,7 +27,7 @@ NSMutableString *currentElementValue;
     //string that holds current tag
     NSString *tag;
     NSError* m_error;
-    
+
 }
 
 @property (nonatomic, retain) CellData *cell;

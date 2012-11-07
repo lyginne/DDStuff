@@ -106,6 +106,7 @@
           
              if (tag == @"strVar")
              {
+                 
                  cell.stringVar = currentElementValue;
              }
           
@@ -155,6 +156,8 @@
     
     
 }
+
+
 
 
 
