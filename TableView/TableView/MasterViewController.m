@@ -82,6 +82,8 @@
     [dateFormat setDateFormat:@"yyyy-MM-dd"];
     cell.dateLabel.text=[dateFormat stringFromDate:cellDataAtIndex.date];
     [dateFormat release];
+    cell.MyimageView.image=cellDataAtIndex.image;
+    cell.MyimageView.contentMode=UIViewContentModeScaleAspectFit;
     return cell;
 }
 

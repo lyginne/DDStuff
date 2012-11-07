@@ -30,7 +30,8 @@ static NSInteger masterSelectIndex, editSelectIndexRow;
     [dateFormat release];
 }
 -(void)setDate:(NSDate *) date{
-    _date=date;
+    [_date release];
+    _date=[date copy];
     [self renewTitleOnButton];
 }
 -(NSDate *) getDate{
@@ -50,12 +51,12 @@ static NSInteger masterSelectIndex, editSelectIndexRow;
                        animated:YES];
 }
 
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)img editingInfo:(NSDictionary *)editInfo {
+- (void)imagePickerController:(UIImagePickerController *)picker
+        didFinishPickingImage:(UIImage *)img
+                  editingInfo:(NSDictionary *)editInfo {
+    
     imageView.image = img;
     [pop dismissPopoverAnimated:YES];
-}
-- (void)viewDidLoad {
-
 }
 
 +(void) setMasterSelectIndex:(NSUInteger) index
@@ -71,7 +72,9 @@ static NSInteger masterSelectIndex, editSelectIndexRow;
     boolVarSwith.on=[CellDataArray objectInArrayAtIndex:masterSelectIndex ].boolVar;
     editSelectIndexRow=[CellDataArray objectInArrayAtIndex:masterSelectIndex].choiseVar;
     _date=[CellDataArray objectInArrayAtIndex:masterSelectIndex].date;
+    [_date retain];
     [self renewTitleOnButton];
+    imageView.image=[CellDataArray objectInArrayAtIndex:masterSelectIndex].image;
 
     
 }                                  
@@ -84,8 +87,10 @@ static NSInteger masterSelectIndex, editSelectIndexRow;
     [cellData setStringVar:strVarTextField.text];
     [cellData setChoiseVar:editSelectIndexRow];
     [cellData setDate:_date];
+    [cellData setImage:imageView.image];
     [CellDataArray replaceInArrayAtIndex:masterSelectIndex withCell:cellData];
     [cellData release];
+    [_date release];
     
 }
 
@@ -93,7 +98,7 @@ static NSInteger masterSelectIndex, editSelectIndexRow;
     [self setStrVarTextField:nil];
     [self setBoolVarSwith:nil];
     [self setTableView:nil];
-    [self setDate:nil];
+    //[self setDate:nil];
     [super viewDidUnload];
 }
 
@@ -122,7 +127,6 @@ static NSInteger masterSelectIndex, editSelectIndexRow;
     [imgPicker release];
     [strVarTextField release];
     [boolVarSwith release];
-    [_date release];
     [super dealloc];
 }
 

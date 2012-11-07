@@ -10,7 +10,7 @@
 
 @implementation CellData
 
-@synthesize stringVar=_stringVar, boolVar=_boolVar, choiseVar=_choiseVar, date=_date;
+@synthesize stringVar=_stringVar, boolVar=_boolVar, choiseVar=_choiseVar, date=_date, image=_image;
 
 -(id) init
 {
@@ -21,7 +21,11 @@
     self.date=[NSDate dateWithTimeIntervalSince1970:0];
     return self;
 }
--(id) initWithStringVar: (NSString *) stringVar boolVar: (bool) boolVar choiseVar: (int) choiseVar date: (NSDate * ) date; {
+-(id) initWithStringVar: (NSString *) stringVar
+                boolVar: (bool) boolVar
+              choiseVar: (int) choiseVar
+                   date: (NSDate * ) date
+                  image:(UIImage *)image; {
     
     //initialize whith variables, nothing else
     
@@ -30,12 +34,15 @@
     self.boolVar=boolVar;
     self.choiseVar=choiseVar;
     self.date=date;
+    self.image=image;
     return self;
 
 }
 -(void)dealloc
 {
     [_stringVar release];
+    [_date release];
+    [_image release];
     [super dealloc];
     
 }

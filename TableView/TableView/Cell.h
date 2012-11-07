@@ -14,6 +14,7 @@
 @property (retain) IBOutlet UISwitch *boolVarSwitch;
 @property (retain) IBOutlet UILabel *choiseVarString;
 @property (retain) IBOutlet UILabel *dateLabel;
+@property (retain,nonatomic) IBOutlet UIImageView *MyimageView;
 
 
 @end

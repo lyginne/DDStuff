@@ -16,7 +16,12 @@
 @property (nonatomic) bool boolVar;
 @property (nonatomic) int choiseVar;
 @property (nonatomic, copy) NSDate *date;
+@property (nonatomic, copy) UIImage *image;
 
--(id) initWithStringVar: (NSString *) stringVar boolVar: (bool) boolVar choiseVar: (int) choiseVar date: (NSDate *) date;
+-(id) initWithStringVar: (NSString *) stringVar
+                boolVar: (bool) boolVar
+              choiseVar: (int) choiseVar
+                   date: (NSDate *) date
+                  image: (UIImage *) image;
 
 @end

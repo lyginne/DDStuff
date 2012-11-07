@@ -20,5 +20,9 @@
 -(void)viewWillDisappear:(BOOL)animated{
     [[self delegate] setDate:dateEditor.date];
 }
+-(void)dealloc{
+    [dateEditor release];
+    [super dealloc];
+}
 
 @end

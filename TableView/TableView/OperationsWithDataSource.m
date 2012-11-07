@@ -63,7 +63,7 @@
 + (void)loadData {
     
     
-    switch ([[NSUserDefaults standardUserDefaults] integerForKey:@"data_source"]) {
+    /*switch ([[NSUserDefaults standardUserDefaults] integerForKey:@"data_source"]) {
         case 0:
             //SQL
             break;
@@ -74,9 +74,9 @@
             break;
             
         case 2:
-            //parseDOM
+            //parseDOM*/
             [OperationsWithDataSource loadCellDataArrayDOM];
-    }    
+    //}
 }
 +(void) saveCellDataArrayDOM {
     GDataXMLElement * cellDataArrayElement = [GDataXMLNode elementWithName:@"CellDataArray"];
@@ -117,7 +117,7 @@
 
 }
 + (void)saveData {
-    switch ([[NSUserDefaults standardUserDefaults] integerForKey:@"data_source"]) {
+    /*switch ([[NSUserDefaults standardUserDefaults] integerForKey:@"data_source"]) {
         case 0:
             //SQL
             break;
@@ -126,10 +126,10 @@
             [OperationsWithDataSource saveCellDataArrayDefault];
             break;
             
-        case 2:
+        case 2:*/
             //parseDOM
             [OperationsWithDataSource saveCellDataArrayDOM];
-    }
+    //}
     
 }
 
@@ -197,8 +197,8 @@
         NSString *choiseVar = [[NSString alloc] init];
         choiseVar = [NSString stringWithFormat:@"%d", cellData.choiseVar];
         
-        NSString *dateVar = [[NSString alloc] init];
-        dateVar = [NSString stringWithFormat:@"%@", cellData.date];
+        //NSString *dateVar = [[NSString alloc] init];
+        NSString *dateVar = [NSString stringWithFormat:@"%@", cellData.date];
         NSString *str = [NSString stringWithFormat:@"\n<CellData>\n<strVar>%@</strVar>\n<boolVar>%@</boolVar>\n<choiseVar>%@</choiseVar>\n<Date>%@</Date>\n</CellData>\n", strVar,boolVar, choiseVar, dateVar];
         
         
