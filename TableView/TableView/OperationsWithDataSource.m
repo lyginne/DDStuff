@@ -5,11 +5,14 @@
 //  Created by Admin on 10/31/12.
 //
 //
-
+#import <Foundation/Foundation.h>
 #import "OperationsWithDataSource.h"
 #import "CellDataArray.h"
 #import "GDataXMLNode.h"
 #import "CellData.h"
+#import "DefaultParserDelegate.h"
+
+
 
 @implementation OperationsWithDataSource
 
@@ -67,6 +70,7 @@
             
         case 1:
             //parseDefault
+            [OperationsWithDataSource loadCellDataArrayDefault];
             break;
             
         case 2:
@@ -119,7 +123,7 @@
             break;
             
         case 1:
-            //parseDefault
+            [OperationsWithDataSource saveCellDataArrayDefault];
             break;
             
         case 2:
@@ -128,5 +132,110 @@
     }
     
 }
+
+
+
+// -----------------------------DefaultParse------------------
+
+
++(void) loadCellDataArrayDefault
+{
+    
+    
+    
+    
+    // NSString *filepath = [self dataFilePath:FALSE];
+    
+     NSString *filepath = @"/Users/mac/Desktop/CellDataArray.xml";
+    NSData *data = [NSData dataWithContentsOfFile:filepath];
+    NSXMLParser *nsXmlParser = [[NSXMLParser alloc] initWithData:data];
+    DefaultParserDelegate *parser = [[DefaultParserDelegate alloc]initXmlParser];
+    [nsXmlParser setDelegate:parser];
+    
+    
+    //parsing..
+    
+    BOOL succes = [nsXmlParser parse];
+    
+    if (succes)
+    {
+        NSLog(@"NO ERRORS - %d cells succesfully parsed", [parser countOfCells]);
+    }
+    
+    else
+    {
+        NSLog(@"Error parsing document!");
+        NSLog(@"Error - %@", parser.error);
+    }
+    
+    
+    [parser release];
+    [nsXmlParser release];
+    
+
+    
+    
+    
+}
+
+
+
++(void) saveCellDataArrayDefault
+{
+    NSMutableString *myXML = [[NSMutableString alloc] init];
+
+
+    for (CellData *cellData in [CellDataArray getArray])
+    {
+        NSString *strVar = [[NSString alloc] init];
+        strVar = cellData.stringVar;
+        
+        NSString *boolVar = [[NSString alloc] init];
+        boolVar = [NSString stringWithFormat:@"%i", cellData.boolVar];
+        
+        
+        NSString *choiseVar = [[NSString alloc] init];
+        choiseVar = [NSString stringWithFormat:@"%d", cellData.choiseVar];
+        
+        NSString *dateVar = [[NSString alloc] init];
+        dateVar = [NSString stringWithFormat:@"%@", cellData.date];
+        NSString *str = [NSString stringWithFormat:@"\n<CellData>\n<strVar>%@</strVar>\n<boolVar>%@</boolVar>\n<choiseVar>%@</choiseVar>\n<Date>%@</Date>\n</CellData>\n", strVar,boolVar, choiseVar, dateVar];
+        
+        
+        
+        [myXML appendString:str];
+        
+        // NSString *filepath = [self dataFilePath:FALSE];
+        
+        NSString *filepath = @"/Users/mac/Desktop/CellDataTest.xml";
+        [myXML writeToFile:filepath atomically:YES];
+        
+
+        
+        
+    }
+    
+    
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @end
