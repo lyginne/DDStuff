@@ -103,7 +103,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="8qg-nM-y8f">
-                            <rect key="frame" x="0.0" y="0.0" width="768" height="293"/>
+                            <rect key="frame" x="0.0" y="0.0" width="768" height="492"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="ntT-EC-TcU">
@@ -147,6 +147,25 @@
                                         </segue>
                                     </connections>
                                 </button>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="l6A-oi-OFP">
+                                    <rect key="frame" x="46" y="271" width="240" height="128"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                </imageView>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="yEA-gl-4Rk">
+                                    <rect key="frame" x="133" y="419" width="73" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                    <state key="normal" title="Button">
+                                        <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <state key="highlighted">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="grabImage:" destination="B1N-W4-clC" eventType="touchUpInside" id="dB2-Ya-oes"/>
+                                    </connections>
+                                </button>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
@@ -154,7 +173,7 @@
                             <tableViewSection headerTitle="Choose smth" id="DdJ-SV-W03">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="1" id="Dl3-T4-x9o">
-                                        <rect key="frame" x="0.0" y="327" width="768" height="45"/>
+                                        <rect key="frame" x="0.0" y="526" width="768" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="45" y="1" width="678" height="43"/>
@@ -173,7 +192,7 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="2" id="xP9-rQ-L8B">
-                                        <rect key="frame" x="0.0" y="372" width="768" height="44"/>
+                                        <rect key="frame" x="0.0" y="571" width="768" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="45" y="0.0" width="678" height="43"/>
@@ -192,7 +211,7 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="3" id="Nve-nu-lwX">
-                                        <rect key="frame" x="0.0" y="416" width="768" height="45"/>
+                                        <rect key="frame" x="0.0" y="615" width="768" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="45" y="0.0" width="678" height="43"/>
@@ -222,6 +241,8 @@
                     <connections>
                         <outlet property="boolVarSwith" destination="pMv-wE-NQs" id="34K-KB-fQr"/>
                         <outlet property="button" destination="eU6-Jd-MBO" id="HkG-jD-v3e"/>
+                        <outlet property="imageView" destination="l6A-oi-OFP" id="AnM-CI-0G3"/>
+                        <outlet property="imgButton" destination="yEA-gl-4Rk" id="yag-aB-Wfu"/>
                         <outlet property="strVarTextField" destination="ntT-EC-TcU" id="DGe-Xg-bUj"/>
                     </connections>
                 </tableViewController>

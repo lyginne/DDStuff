@@ -81,6 +81,7 @@
     NSDateFormatter *dateFormat=[[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:@"yyyy-MM-dd"];
     cell.dateLabel.text=[dateFormat stringFromDate:cellDataAtIndex.date];
+    [dateFormat release];
     return cell;
 }
 

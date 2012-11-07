@@ -12,12 +12,16 @@
 
 @implementation EditViewController {
     NSDate * _date;
+    UIPopoverController *pop;
 }
 static NSInteger masterSelectIndex, editSelectIndexRow;
 
 
 @synthesize strVarTextField;
 @synthesize boolVarSwith;
+@synthesize imgPicker;
+@synthesize imageView;
+@synthesize imgButton;
 
 -(void)renewTitleOnButton{
     NSDateFormatter *dateFormat=[[NSDateFormatter alloc] init];
@@ -32,6 +36,26 @@ static NSInteger masterSelectIndex, editSelectIndexRow;
 -(NSDate *) getDate{
     
     return _date;
+}
+-(IBAction)grabImage:(id)sender{
+    
+    imgPicker = [[UIImagePickerController alloc] init];
+    //self.imgPicker.allowsImageEditing = YES;
+    imgPicker.delegate = self;
+    imgPicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    pop=[[UIPopoverController alloc] initWithContentViewController:imgPicker];
+    [pop presentPopoverFromRect:imgButton.frame
+                         inView:self.view
+       permittedArrowDirections:UIPopoverArrowDirectionAny
+                       animated:YES];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)img editingInfo:(NSDictionary *)editInfo {
+    imageView.image = img;
+    [pop dismissPopoverAnimated:YES];
+}
+- (void)viewDidLoad {
+
 }
 
 +(void) setMasterSelectIndex:(NSUInteger) index
@@ -94,6 +118,8 @@ static NSInteger masterSelectIndex, editSelectIndexRow;
 
 -(void) dealloc
 {
+    [imageView release];
+    [imgPicker release];
     [strVarTextField release];
     [boolVarSwith release];
     [_date release];

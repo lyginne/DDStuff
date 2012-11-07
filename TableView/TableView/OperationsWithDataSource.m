@@ -35,6 +35,7 @@
         [cellData setDate:[dateFormat dateFromString:[[[cellDataElement elementsForName:@"date"] objectAtIndex:0] stringValue]]];
         [CellDataArray addInArrayCellData:cellData];
         [cellData release];
+        [dateFormat release];
         
     }
     
@@ -100,6 +101,7 @@
         [cellDataElement addChild:choiseVarElement];
         [cellDataElement addChild:dateElement];
         [cellDataArrayElement addChild:cellDataElement];
+        [dateFormat release];
     }
     
     GDataXMLDocument *document = [[GDataXMLDocument alloc] initWithRootElement:cellDataArrayElement];
