@@ -18,7 +18,7 @@
     self.stringVar=@"DefaultString";
     self.boolVar=YES;
     self.choiseVar=0;
-    self.date=[NSDate dateWithTimeIntervalSince1970:0];
+    self.date=[NSDate dateWithTimeIntervalSinceNow:0];
     return self;
 }
 -(id) initWithStringVar: (NSString *) stringVar
