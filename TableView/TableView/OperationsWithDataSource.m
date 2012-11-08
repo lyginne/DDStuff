@@ -11,6 +11,7 @@
 #import "GDataXMLNode.h"
 #import "CellData.h"
 #import "DefaultParserDelegate.h"
+#import <sqlite3.h>
 
 
 
@@ -63,9 +64,10 @@
 + (void)loadData {
     
     
-    /*switch ([[NSUserDefaults standardUserDefaults] integerForKey:@"data_source"]) {
+    switch ([[NSUserDefaults standardUserDefaults] integerForKey:@"data_source"]) {
         case 0:
             //SQL
+            [OperationsWithDataSource loadCellDataArraySQLITE];
             break;
             
         case 1:
@@ -74,9 +76,9 @@
             break;
             
         case 2:
-            //parseDOM*/
+            //parseDOM
             [OperationsWithDataSource loadCellDataArrayDOM];
-    //}
+    }
 }
 +(void) saveCellDataArrayDOM {
     GDataXMLElement * cellDataArrayElement = [GDataXMLNode elementWithName:@"CellDataArray"];
@@ -117,7 +119,7 @@
 
 }
 + (void)saveData {
-    /*switch ([[NSUserDefaults standardUserDefaults] integerForKey:@"data_source"]) {
+    switch ([[NSUserDefaults standardUserDefaults] integerForKey:@"data_source"]) {
         case 0:
             //SQL
             break;
@@ -126,10 +128,10 @@
             [OperationsWithDataSource saveCellDataArrayDefault];
             break;
             
-        case 2:*/
+        case 2:
             //parseDOM
             [OperationsWithDataSource saveCellDataArrayDOM];
-    //}
+    }
     
 }
 
@@ -149,7 +151,7 @@
      NSString *filepath = @"/Users/mac/Desktop/CellDataArray.xml";
     NSData *data = [NSData dataWithContentsOfFile:filepath];
     NSXMLParser *nsXmlParser = [[NSXMLParser alloc] initWithData:data];
-    DefaultParserDelegate *parser = [[DefaultParserDelegate alloc]initXmlParser];
+    DefaultParserDelegate *parser = [[DefaultParserDelegate alloc]init];
     [nsXmlParser setDelegate:parser];
     
     
@@ -187,15 +189,12 @@
 
     for (CellData *cellData in [CellDataArray getArray])
     {
-        NSString *strVar = [[NSString alloc] init];
-        strVar = cellData.stringVar;
+       
+       NSString *strVar =[NSString stringWithString:cellData.stringVar];
         
-        NSString *boolVar = [[NSString alloc] init];
-        boolVar = [NSString stringWithFormat:@"%i", cellData.boolVar];
-        
-        
-        NSString *choiseVar = [[NSString alloc] init];
-        choiseVar = [NSString stringWithFormat:@"%d", cellData.choiseVar];
+
+        NSString *boolVar = [NSString stringWithFormat:@"%i", cellData.boolVar];
+        NSString *choiseVar = [NSString stringWithFormat:@"%d", cellData.choiseVar];
         
         //NSString *dateVar = [[NSString alloc] init];
         NSString *dateVar = [NSString stringWithFormat:@"%@", cellData.date];
@@ -208,12 +207,16 @@
         // NSString *filepath = [self dataFilePath:FALSE];
         
         NSString *filepath = @"/Users/mac/Desktop/CellDataTest.xml";
-        [myXML writeToFile:filepath atomically:YES];
+        
+            [myXML writeToFile:filepath atomically:YES encoding:NSUTF8StringEncoding error:NULL];
+        
+        
         
 
         
         
     }
+    [myXML release];
     
     
     
@@ -226,13 +229,97 @@
 
 
 
+// --------------------SQLITE-------
+
+
++(void) loadCellDataArraySQLITE
+{
+    
+    sqlite3 *db;
+    
+    
+  @try {  
+    NSFileManager *fileMGR = [NSFileManager defaultManager];
+    NSString *filepath = @"/Users/mac/Desktop/CellDataArray.sqlite";
+
+    BOOL success = [fileMGR fileExistsAtPath:filepath];
+    
+    if (!success)
+    {
+        NSLog(@"Cannot delocate file %@", filepath);
+    }
+    
+    if ((!sqlite3_open([filepath UTF8String], &db) == SQLITE_OK))
+    {
+        NSLog(@"ERROR HERE! %s,", sqlite3_errmsg(db));
+    }
+    
+    
+    
+    const char *sql = "SELECT * FROM CellDataArraySQLITE";
+    sqlite3_stmt *sqlStatement;
+    
+    if(sqlite3_prepare(db, sql, -1, &sqlStatement, NULL)!= SQLITE_OK)
+    {
+        NSLog(@"PRoblem with statement %s", sqlite3_errmsg(db));
+        
+    }
+
+    
+    
+    else
+    {
+        while (sqlite3_step(sqlStatement) == SQLITE_ROW)
+        {
+            CellData *cell = [[CellData alloc] init];
+            cell.stringVar = [NSString stringWithUTF8String:(char *) sqlite3_column_text(sqlStatement, 0)];
+            cell.boolVar = [[NSString stringWithUTF8String:(char *) sqlite3_column_text(sqlStatement, 1)]boolValue];
+            cell.choiseVar =  [[NSString stringWithUTF8String:(char *) sqlite3_column_text(sqlStatement, 2)]intValue];
+            
+            NSString *str = [NSString stringWithString:[NSString stringWithUTF8String:(char *) sqlite3_column_text(sqlStatement, 3)]];
+            NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+            [dateFormat setDateFormat:@"YYYY-MM-dd"];
+            
+            NSDate *date = [dateFormat dateFromString:str];
+            cell.date = date;
+            [dateFormat release];
+            
+            
+            
+
+            
+            const char *raw = sqlite3_column_blob(sqlStatement, 4);
+            int rawLen = sqlite3_column_bytes(sqlStatement, 4);
+            NSData *data = [NSData dataWithBytes:raw length:rawLen];
+            cell.image = [[UIImage alloc] initWithData:data];
+            
+            
+            [CellDataArray addInArrayCellData:cell];
+            [cell release];
+
+        }
+        
+        
+        
+       
+    
+    
+    
+    
+  }
+}
+      @catch (NSException *exception) {
+          NSLog(@"Problem with prepare statement %s", sqlite3_errmsg(db));
+      }
+      @finally {
+          sqlite3_close(db);
+      }
 
 
 
 
 
-
-
+}
 
 
 

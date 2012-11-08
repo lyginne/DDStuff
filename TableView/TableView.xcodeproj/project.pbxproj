@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04838DB8164BC9EF00145470 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 04838DB7164BC9EF00145470 /* libsqlite3.dylib */; };
 		04887C7B1637DE9F004EC5B3 /* Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04887C7A1637DE9F004EC5B3 /* Cell.m */; };
 		04887C7F1637ED89004EC5B3 /* EditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04887C7E1637ED89004EC5B3 /* EditViewController.m */; };
 		048F728E163772DF000BF5BC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 048F728D163772DF000BF5BC /* UIKit.framework */; };
@@ -28,6 +29,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		04838DB7164BC9EF00145470 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		04838DBA164BCA4400145470 /* CellDataArray.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; name = CellDataArray.sqlite; path = ../../../../../../Desktop/CellDataArray.sqlite; sourceTree = "<group>"; };
 		04887C791637DE9F004EC5B3 /* Cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cell.h; sourceTree = "<group>"; };
 		04887C7A1637DE9F004EC5B3 /* Cell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Cell.m; sourceTree = "<group>"; };
 		04887C7D1637ED89004EC5B3 /* EditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditViewController.h; sourceTree = "<group>"; };
@@ -66,6 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04838DB8164BC9EF00145470 /* libsqlite3.dylib in Frameworks */,
 				048F728E163772DF000BF5BC /* UIKit.framework in Frameworks */,
 				048F7290163772DF000BF5BC /* Foundation.framework in Frameworks */,
 				048F7292163772DF000BF5BC /* CoreGraphics.framework in Frameworks */,
@@ -78,6 +82,7 @@
 		048F727E163772DF000BF5BC = {
 			isa = PBXGroup;
 			children = (
+				04838DB7164BC9EF00145470 /* libsqlite3.dylib */,
 				048F7293163772DF000BF5BC /* TableView */,
 				048F728C163772DF000BF5BC /* Frameworks */,
 				048F728A163772DF000BF5BC /* Products */,
@@ -164,6 +169,7 @@
 			isa = PBXGroup;
 			children = (
 				849CEE25164ADB8F000C3B5B /* CellDataArray.xml */,
+				04838DBA164BCA4400145470 /* CellDataArray.sqlite */,
 				848F656F16406E3100B8F281 /* GDataXMLNode.h */,
 				848F657016406E3100B8F281 /* GDataXMLNode.m */,
 				848C77971641A22A00317CB9 /* OperationsWithDataSource.h */,

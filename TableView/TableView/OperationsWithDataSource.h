@@ -7,8 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <sqlite3.h>
 
 @interface OperationsWithDataSource : NSObject
+{
+     sqlite3 *db;
+}
 
 + (void)loadData;
 + (void)saveData;

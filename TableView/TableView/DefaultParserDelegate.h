@@ -10,7 +10,8 @@
 #import "CellDataArray.h"
 #import "CellData.h"
 
-@interface DefaultParserDelegate : NSObject {
+@interface DefaultParserDelegate: NSObject <NSXMLParserDelegate>
+{
 
 // string to hold element value
 NSMutableString *currentElementValue;
@@ -37,7 +38,7 @@ NSMutableString *currentElementValue;
 
 
 
--(DefaultParserDelegate *) initXmlParser;
+//-(DefaultParserDelegate *) initXmlParser;
 
 -(NSUInteger) countOfCells;
 

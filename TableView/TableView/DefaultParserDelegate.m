@@ -10,22 +10,22 @@
 #import "CellDataArray.h"
 #import "CellData.h"
 
-@implementation DefaultParserDelegate
+@implementation DefaultParserDelegate 
 
 
 @synthesize cell;
 @synthesize tag;
 @synthesize error=m_error;
 
--(DefaultParserDelegate *) initXmlParser
-{
-    [super init];
-    
-    
-    // create NSMUT
-    
-    return self;
-}
+//-(DefaultParserDelegate *) initXmlParser
+//{
+//    [super init];
+//    
+//    
+//    // create NSMUT
+//    
+//    return self;
+//}
 
 -(NSUInteger) countOfCells
 {
@@ -128,15 +128,15 @@
              if (tag == @"date")
              {
                
-                 NSString *str = [[NSString alloc] init];
-                 str = currentElementValue;
+                 
+                 NSString *str = [NSString stringWithString: currentElementValue];
                  NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
                  [dateFormat setDateFormat:@"YYYY-MM-dd"];
                  
                NSDate *date = [dateFormat dateFromString:str];
                  cell.date = date;
-                 
-                 
+                
+                 [dateFormat release];
                  
              }
 
