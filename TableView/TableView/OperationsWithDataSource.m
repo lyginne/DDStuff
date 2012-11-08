@@ -298,9 +298,7 @@
         NSString *boolVar = [NSString stringWithFormat:@"%i", cellData.boolVar];
         NSString *choiseVar = [NSString stringWithFormat:@"%d", cellData.choiseVar];
         NSString *dateVar = [NSString stringWithFormat:@"%@", cellData.date];
-        NSString *str = [NSString stringWithFormat:@"\n<CellData>\n<strVar>%@</strVar>\n<boolVar>%@</boolVar>\n<choiseVar>%@</choiseVar>\n<date>%@</date>\n</CellData>\n", strVar,boolVar, choiseVar, dateVar];
-        
-        
+        NSString *str = [NSString stringWithFormat:@"\n<CellData>\n<strVar>%@</strVar>\n<boolVar>%@</boolVar>\n<choiseVar>%@</choiseVar>\n<date>%@</date>\n</CellData>\n", strVar,boolVar, choiseVar, dateVar];       
         
         [myXML appendString:str];
         
