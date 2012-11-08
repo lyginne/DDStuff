@@ -30,7 +30,6 @@
 
 /* Begin PBXFileReference section */
 		04838DB7164BC9EF00145470 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
-		04838DBA164BCA4400145470 /* CellDataArray.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; name = CellDataArray.sqlite; path = ../../../../../../Desktop/CellDataArray.sqlite; sourceTree = "<group>"; };
 		04887C791637DE9F004EC5B3 /* Cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cell.h; sourceTree = "<group>"; };
 		04887C7A1637DE9F004EC5B3 /* Cell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Cell.m; sourceTree = "<group>"; };
 		04887C7D1637ED89004EC5B3 /* EditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditViewController.h; sourceTree = "<group>"; };
@@ -61,6 +60,7 @@
 		848F656F16406E3100B8F281 /* GDataXMLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDataXMLNode.h; sourceTree = "<group>"; };
 		848F657016406E3100B8F281 /* GDataXMLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDataXMLNode.m; sourceTree = "<group>"; };
 		8491B58E163EF1DD00111059 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		8493CE87164C0812007131C1 /* CellDataArray.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = CellDataArray.sqlite; sourceTree = "<group>"; };
 		849CEE25164ADB8F000C3B5B /* CellDataArray.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = CellDataArray.xml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -169,7 +169,7 @@
 			isa = PBXGroup;
 			children = (
 				849CEE25164ADB8F000C3B5B /* CellDataArray.xml */,
-				04838DBA164BCA4400145470 /* CellDataArray.sqlite */,
+				8493CE87164C0812007131C1 /* CellDataArray.sqlite */,
 				848F656F16406E3100B8F281 /* GDataXMLNode.h */,
 				848F657016406E3100B8F281 /* GDataXMLNode.m */,
 				848C77971641A22A00317CB9 /* OperationsWithDataSource.h */,

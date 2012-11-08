@@ -13,56 +13,40 @@
 #import "DefaultParserDelegate.h"
 #import <sqlite3.h>
 
+@interface OperationsWithDataSource (Loaders)
 
++(void)loadCellDataArrayDOM;
++(void)loadCellDataArrayDefault;
++(void)loadCellDataArraySQLITE;
+
+@end
+
+@interface OperationsWithDataSource (Savers)
+
++(void)saveCellDataArrayDOM;
++(void)saveCellDataArrayDefault;
+//+(void)saveCellDataArraySQLite;
+
+@end
 
 @implementation OperationsWithDataSource
-
-+(void)loadCellDataArrayDOM{
-    
-    NSLog(@"%d",[[NSUserDefaults standardUserDefaults] integerForKey:@"data_source"]);
-    NSString *filePath = [self dataFilePath:FALSE];
-    NSData *xmlData = [[NSMutableData alloc] initWithContentsOfFile:filePath];
-    NSError *error;
-    GDataXMLDocument *doc = [[GDataXMLDocument alloc] initWithData:xmlData
-                                                           options:0 error:&error];
-    
-    NSArray *cellDataElements = [doc.rootElement elementsForName:@"CellData"];
-    
-    for (GDataXMLElement *cellDataElement in cellDataElements) {
-        CellData *cellData = [[CellData alloc] init];
-        [cellData setStringVar:[[[cellDataElement  elementsForName:@"strVar"] objectAtIndex:0] stringValue]];
-        [cellData setBoolVar:[[[[cellDataElement elementsForName:@"boolVar"] objectAtIndex:0] stringValue] boolValue]];
-        [cellData setChoiseVar:[[[[cellDataElement elementsForName:@"choiseVar"] objectAtIndex:0] stringValue] integerValue]];
-        NSDateFormatter *dateFormat=[[NSDateFormatter alloc] init];
-        [dateFormat setDateFormat:@"yyyy-MM-dd"];
-        //[dateFormat dateFromString:[[[cellDataElement elementsForName:@"date"] objectAtIndex:0] stringValue]];
-        [cellData setDate:[dateFormat dateFromString:[[[cellDataElement elementsForName:@"date"] objectAtIndex:0] stringValue]]];
-        [CellDataArray addInArrayCellData:cellData];
-        [cellData release];
-        [dateFormat release];
-        
-    }
-    
-    [doc release];
-    [xmlData release];
-}
 
 + (NSString *)dataFilePath:(BOOL)forSave {
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     NSString *documentsPath = [documentsDirectory stringByAppendingPathComponent:@"CellDataArray.xml"];
-    if (forSave ||
-       [[NSFileManager defaultManager] fileExistsAtPath:documentsPath]) {
+    if (forSave || [[NSFileManager defaultManager] fileExistsAtPath:documentsPath])
+    {
         return documentsPath;
-    } else {
+    }
+    else
+    {
         return [[NSBundle mainBundle] pathForResource:@"CellDataArray" ofType:@"xml"];
     }
-    
 }
 
 + (void)loadData {
-    
     
     switch ([[NSUserDefaults standardUserDefaults] integerForKey:@"data_source"]) {
         case 0:
@@ -80,6 +64,186 @@
             [OperationsWithDataSource loadCellDataArrayDOM];
     }
 }
+
++ (void)saveData {
+    
+    switch ([[NSUserDefaults standardUserDefaults] integerForKey:@"data_source"]) {
+        case 0:
+            //SQL
+            break;
+            
+        case 1:
+            [OperationsWithDataSource saveCellDataArrayDefault];
+            break;
+            
+        case 2:
+            //parseDOM
+            [OperationsWithDataSource saveCellDataArrayDOM];
+    }
+    
+}
+
+// -----------------------------Loaders------------------
+
++(void)loadCellDataArrayDOM{
+    
+    NSString *filePath = [self dataFilePath:FALSE];
+    NSData *xmlData = [[NSMutableData alloc] initWithContentsOfFile:filePath];
+    NSError *error;
+    GDataXMLDocument *doc = [[GDataXMLDocument alloc] initWithData:xmlData
+                                                           options:0
+                                                             error:&error];
+    
+    NSArray *cellDataElements = [doc.rootElement elementsForName:@"CellData"];
+    
+    for (GDataXMLElement *cellDataElement in cellDataElements) {
+        CellData *cellData = [[CellData alloc] init];
+        [cellData setStringVar:[[[cellDataElement  elementsForName:@"strVar"] objectAtIndex:0] stringValue]];
+        [cellData setBoolVar:[[[[cellDataElement elementsForName:@"boolVar"] objectAtIndex:0] stringValue] boolValue]];
+        [cellData setChoiseVar:[[[[cellDataElement elementsForName:@"choiseVar"] objectAtIndex:0] stringValue] integerValue]];
+        
+        NSDateFormatter *dateFormat=[[NSDateFormatter alloc] init];
+        [dateFormat setDateFormat:@"yyyy-MM-dd"];
+        
+        [cellData setDate:[dateFormat dateFromString:[[[cellDataElement elementsForName:@"date"] objectAtIndex:0] stringValue]]];
+        [CellDataArray addInArrayCellData:cellData];
+        [cellData release];
+        [dateFormat release];        
+    }
+    
+    [doc release];
+    [xmlData release];
+}
+
++(void) loadCellDataArrayDefault{
+    
+    //USE PATH THIS WAY
+    NSString *filepath = [self dataFilePath:FALSE]; 
+    
+    
+    //THIS WAY IS NOT VALID ON REAL IPAD
+     //NSString *filepath = @"/Users/mac/Desktop/CellDataArray.xml";
+    
+    NSData *data = [NSData dataWithContentsOfFile:filepath];
+    NSXMLParser *nsXmlParser = [[NSXMLParser alloc] initWithData:data];
+    DefaultParserDelegate *parser = [[DefaultParserDelegate alloc]init];
+    [nsXmlParser setDelegate:parser];
+    
+    
+    //parsing..
+    
+    BOOL succes = [nsXmlParser parse];
+    
+    if (succes)
+    {
+        NSLog(@"NO ERRORS - %d cells succesfully parsed", [parser countOfCells]);
+    }
+    
+    else
+    {
+        NSLog(@"Error parsing document!");
+        NSLog(@"Error - %@", parser.error);
+    }
+    
+    
+    [parser release];
+    [nsXmlParser release];
+    
+
+    
+    
+    
+}
++(void) loadCellDataArraySQLITE
+{
+    
+    sqlite3 *db;
+    
+    
+    @try {
+        NSFileManager *fileMGR = [NSFileManager defaultManager];
+        NSString *filepath = @"/Users/mac/Desktop/CellDataArray.sqlite";
+        
+        BOOL success = [fileMGR fileExistsAtPath:filepath];
+        
+        if (!success)
+        {
+            NSLog(@"Cannot delocate file %@", filepath);
+        }
+        
+        if ((!sqlite3_open([filepath UTF8String], &db) == SQLITE_OK))
+        {
+            NSLog(@"ERROR HERE! %s,", sqlite3_errmsg(db));
+        }
+        
+        
+        
+        const char *sql = "SELECT * FROM CellDataArraySQLITE";
+        sqlite3_stmt *sqlStatement;
+        
+        if(sqlite3_prepare(db, sql, -1, &sqlStatement, NULL)!= SQLITE_OK)
+        {
+            NSLog(@"PRoblem with statement %s", sqlite3_errmsg(db));
+            
+        }
+        
+        
+        
+        else
+        {
+            while (sqlite3_step(sqlStatement) == SQLITE_ROW)
+            {
+                CellData *cell = [[CellData alloc] init];
+                cell.stringVar = [NSString stringWithUTF8String:(char *) sqlite3_column_text(sqlStatement, 0)];
+                cell.boolVar = [[NSString stringWithUTF8String:(char *) sqlite3_column_text(sqlStatement, 1)]boolValue];
+                cell.choiseVar =  [[NSString stringWithUTF8String:(char *) sqlite3_column_text(sqlStatement, 2)]intValue];
+                
+                NSString *str = [NSString stringWithString:[NSString stringWithUTF8String:(char *) sqlite3_column_text(sqlStatement, 3)]];
+                NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+                [dateFormat setDateFormat:@"YYYY-MM-dd"];
+                
+                NSDate *date = [dateFormat dateFromString:str];
+                cell.date = date;
+                [dateFormat release];
+                
+                
+                
+                
+                
+                const char *raw = sqlite3_column_blob(sqlStatement, 4);
+                int rawLen = sqlite3_column_bytes(sqlStatement, 4);
+                NSData *data = [NSData dataWithBytes:raw length:rawLen];
+                cell.image = [[UIImage alloc] initWithData:data];
+                
+                
+                [CellDataArray addInArrayCellData:cell];
+                [cell release];
+                
+            }
+            
+            
+            
+            
+            
+            
+            
+            
+        }
+    }
+    @catch (NSException *exception) {
+        NSLog(@"Problem with prepare statement %s", sqlite3_errmsg(db));
+    }
+    @finally {
+        sqlite3_close(db);
+    }
+    
+    
+    
+    
+    
+}
+// -----------------------------Savers------------------
+
 +(void) saveCellDataArrayDOM {
     GDataXMLElement * cellDataArrayElement = [GDataXMLNode elementWithName:@"CellDataArray"];
     
@@ -116,69 +280,9 @@
     NSString *filePath = [self dataFilePath:TRUE];
     [xmlData writeToFile:filePath atomically:YES];
     [document release];
-
-}
-+ (void)saveData {
-    switch ([[NSUserDefaults standardUserDefaults] integerForKey:@"data_source"]) {
-        case 0:
-            //SQL
-            break;
-            
-        case 1:
-            [OperationsWithDataSource saveCellDataArrayDefault];
-            break;
-            
-        case 2:
-            //parseDOM
-            [OperationsWithDataSource saveCellDataArrayDOM];
-    }
     
 }
 
-
-
-// -----------------------------DefaultParse------------------
-
-
-+(void) loadCellDataArrayDefault
-{
-    
-    
-    
-    
-    // NSString *filepath = [self dataFilePath:FALSE];
-    
-     NSString *filepath = @"/Users/mac/Desktop/CellDataArray.xml";
-    NSData *data = [NSData dataWithContentsOfFile:filepath];
-    NSXMLParser *nsXmlParser = [[NSXMLParser alloc] initWithData:data];
-    DefaultParserDelegate *parser = [[DefaultParserDelegate alloc]init];
-    [nsXmlParser setDelegate:parser];
-    
-    
-    //parsing..
-    
-    BOOL succes = [nsXmlParser parse];
-    
-    if (succes)
-    {
-        NSLog(@"NO ERRORS - %d cells succesfully parsed", [parser countOfCells]);
-    }
-    
-    else
-    {
-        NSLog(@"Error parsing document!");
-        NSLog(@"Error - %@", parser.error);
-    }
-    
-    
-    [parser release];
-    [nsXmlParser release];
-    
-
-    
-    
-    
-}
 
 
 
@@ -190,139 +294,22 @@
     for (CellData *cellData in [CellDataArray getArray])
     {
        
-       NSString *strVar =[NSString stringWithString:cellData.stringVar];
-        
-
+        NSString *strVar =[NSString stringWithString:cellData.stringVar];
         NSString *boolVar = [NSString stringWithFormat:@"%i", cellData.boolVar];
         NSString *choiseVar = [NSString stringWithFormat:@"%d", cellData.choiseVar];
-        
-        //NSString *dateVar = [[NSString alloc] init];
         NSString *dateVar = [NSString stringWithFormat:@"%@", cellData.date];
-        NSString *str = [NSString stringWithFormat:@"\n<CellData>\n<strVar>%@</strVar>\n<boolVar>%@</boolVar>\n<choiseVar>%@</choiseVar>\n<Date>%@</Date>\n</CellData>\n", strVar,boolVar, choiseVar, dateVar];
+        NSString *str = [NSString stringWithFormat:@"\n<CellData>\n<strVar>%@</strVar>\n<boolVar>%@</boolVar>\n<choiseVar>%@</choiseVar>\n<date>%@</date>\n</CellData>\n", strVar,boolVar, choiseVar, dateVar];
         
         
         
         [myXML appendString:str];
         
-        // NSString *filepath = [self dataFilePath:FALSE];
+        NSString *filepath = [self dataFilePath:TRUE];
         
-        NSString *filepath = @"/Users/mac/Desktop/CellDataTest.xml";
+        //NSString *filepath = @"/Users/mac/Desktop/CellDataTest.xml";
         
-            [myXML writeToFile:filepath atomically:YES encoding:NSUTF8StringEncoding error:NULL];
-        
-        
-        
-
-        
-        
+        [myXML writeToFile:filepath atomically:YES encoding:NSUTF8StringEncoding error:NULL];
     }
     [myXML release];
-    
-    
-    
 }
-
-
-
-
-
-
-
-
-// --------------------SQLITE-------
-
-
-+(void) loadCellDataArraySQLITE
-{
-    
-    sqlite3 *db;
-    
-    
-  @try {  
-    NSFileManager *fileMGR = [NSFileManager defaultManager];
-    NSString *filepath = @"/Users/mac/Desktop/CellDataArray.sqlite";
-
-    BOOL success = [fileMGR fileExistsAtPath:filepath];
-    
-    if (!success)
-    {
-        NSLog(@"Cannot delocate file %@", filepath);
-    }
-    
-    if ((!sqlite3_open([filepath UTF8String], &db) == SQLITE_OK))
-    {
-        NSLog(@"ERROR HERE! %s,", sqlite3_errmsg(db));
-    }
-    
-    
-    
-    const char *sql = "SELECT * FROM CellDataArraySQLITE";
-    sqlite3_stmt *sqlStatement;
-    
-    if(sqlite3_prepare(db, sql, -1, &sqlStatement, NULL)!= SQLITE_OK)
-    {
-        NSLog(@"PRoblem with statement %s", sqlite3_errmsg(db));
-        
-    }
-
-    
-    
-    else
-    {
-        while (sqlite3_step(sqlStatement) == SQLITE_ROW)
-        {
-            CellData *cell = [[CellData alloc] init];
-            cell.stringVar = [NSString stringWithUTF8String:(char *) sqlite3_column_text(sqlStatement, 0)];
-            cell.boolVar = [[NSString stringWithUTF8String:(char *) sqlite3_column_text(sqlStatement, 1)]boolValue];
-            cell.choiseVar =  [[NSString stringWithUTF8String:(char *) sqlite3_column_text(sqlStatement, 2)]intValue];
-            
-            NSString *str = [NSString stringWithString:[NSString stringWithUTF8String:(char *) sqlite3_column_text(sqlStatement, 3)]];
-            NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-            [dateFormat setDateFormat:@"YYYY-MM-dd"];
-            
-            NSDate *date = [dateFormat dateFromString:str];
-            cell.date = date;
-            [dateFormat release];
-            
-            
-            
-
-            
-            const char *raw = sqlite3_column_blob(sqlStatement, 4);
-            int rawLen = sqlite3_column_bytes(sqlStatement, 4);
-            NSData *data = [NSData dataWithBytes:raw length:rawLen];
-            cell.image = [[UIImage alloc] initWithData:data];
-            
-            
-            [CellDataArray addInArrayCellData:cell];
-            [cell release];
-
-        }
-        
-        
-        
-       
-    
-    
-    
-    
-  }
-}
-      @catch (NSException *exception) {
-          NSLog(@"Problem with prepare statement %s", sqlite3_errmsg(db));
-      }
-      @finally {
-          sqlite3_close(db);
-      }
-
-
-
-
-
-}
-
-
-
-
-
 @end
