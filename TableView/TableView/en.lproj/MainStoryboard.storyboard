@@ -118,7 +118,7 @@
                                     <textInputTraits key="textInputTraits"/>
                                 </textField>
                                 <switch opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="pMv-wE-NQs">
-                                    <rect key="frame" x="194" y="100" width="79" height="27"/>
+                                    <rect key="frame" x="195" y="97" width="79" height="27"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 </switch>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="strVar" lineBreakMode="tailTruncation" minimumFontSize="20" id="iUD-65-Im6">

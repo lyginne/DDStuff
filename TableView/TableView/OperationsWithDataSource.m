@@ -37,13 +37,9 @@
     NSString *documentsDirectory = [paths objectAtIndex:0];
     NSString *documentsPath = [documentsDirectory stringByAppendingPathComponent:@"CellDataArray.xml"];
     if (forSave || [[NSFileManager defaultManager] fileExistsAtPath:documentsPath])
-    {
         return documentsPath;
-    }
     else
-    {
         return [[NSBundle mainBundle] pathForResource:@"CellDataArray" ofType:@"xml"];
-    }
 }
 
 + (void)loadData {
@@ -93,67 +89,39 @@
     GDataXMLDocument *doc = [[GDataXMLDocument alloc] initWithData:xmlData
                                                            options:0
                                                              error:&error];
-    
     NSArray *cellDataElements = [doc.rootElement elementsForName:@"CellData"];
+    NSDateFormatter *dateFormat=[[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"yyyy-MM-dd"];
     
-    for (GDataXMLElement *cellDataElement in cellDataElements) {
+    for (GDataXMLElement *cellDataElement in cellDataElements)
+    {
         CellData *cellData = [[CellData alloc] init];
         [cellData setStringVar:[[[cellDataElement  elementsForName:@"strVar"] objectAtIndex:0] stringValue]];
         [cellData setBoolVar:[[[[cellDataElement elementsForName:@"boolVar"] objectAtIndex:0] stringValue] boolValue]];
-        [cellData setChoiseVar:[[[[cellDataElement elementsForName:@"choiseVar"] objectAtIndex:0] stringValue] integerValue]];
-        
-        NSDateFormatter *dateFormat=[[NSDateFormatter alloc] init];
-        [dateFormat setDateFormat:@"yyyy-MM-dd"];
-        
+        [cellData setChoiseVar:[[[[cellDataElement elementsForName:@"choiseVar"] objectAtIndex:0] stringValue] integerValue]];     
         [cellData setDate:[dateFormat dateFromString:[[[cellDataElement elementsForName:@"date"] objectAtIndex:0] stringValue]]];
         [CellDataArray addInArrayCellData:cellData];
         [cellData release];
-        [dateFormat release];        
     }
-    
+    [dateFormat release];
     [doc release];
     [xmlData release];
 }
 
 +(void) loadCellDataArrayDefault{
     
-    //USE PATH THIS WAY
-    NSString *filepath = [self dataFilePath:FALSE]; 
-    
-    
-    //THIS WAY IS NOT VALID ON REAL IPAD
-     //NSString *filepath = @"/Users/mac/Desktop/CellDataArray.xml";
-    
+    NSString *filepath = [self dataFilePath:FALSE];    
     NSData *data = [NSData dataWithContentsOfFile:filepath];
     NSXMLParser *nsXmlParser = [[NSXMLParser alloc] initWithData:data];
     DefaultParserDelegate *parser = [[DefaultParserDelegate alloc]init];
     [nsXmlParser setDelegate:parser];
     
-    
-    //parsing..
-    
-    BOOL succes = [nsXmlParser parse];
-    
-    if (succes)
-    {
-        NSLog(@"NO ERRORS - %d cells succesfully parsed", [parser countOfCells]);
-    }
-    
-    else
-    {
-        NSLog(@"Error parsing document!");
-        NSLog(@"Error - %@", parser.error);
-    }
-    
+    [nsXmlParser parse];
     
     [parser release];
     [nsXmlParser release];
-    
-
-    
-    
-    
 }
+
 +(void) loadCellDataArraySQLITE
 {
     
@@ -280,34 +248,22 @@
     NSString *filePath = [self dataFilePath:TRUE];
     [xmlData writeToFile:filePath atomically:YES];
     [document release];
-    
 }
 
-
-
-
-+(void) saveCellDataArrayDefault
-{
++(void) saveCellDataArrayDefault{
+    
+    NSString *filepath = [self dataFilePath:TRUE];
     NSMutableString *myXML = [[NSMutableString alloc] init];
-
-
+    [myXML appendString:@"<CellDataArray>"];
+    NSDateFormatter *dateFormat=[[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"yyyy-MM-dd"];
     for (CellData *cellData in [CellDataArray getArray])
-    {
-       
-        NSString *strVar =[NSString stringWithString:cellData.stringVar];
-        NSString *boolVar = [NSString stringWithFormat:@"%i", cellData.boolVar];
-        NSString *choiseVar = [NSString stringWithFormat:@"%d", cellData.choiseVar];
-        NSString *dateVar = [NSString stringWithFormat:@"%@", cellData.date];
-        NSString *str = [NSString stringWithFormat:@"\n<CellData>\n<strVar>%@</strVar>\n<boolVar>%@</boolVar>\n<choiseVar>%@</choiseVar>\n<date>%@</date>\n</CellData>\n", strVar,boolVar, choiseVar, dateVar];       
-        
-        [myXML appendString:str];
-        
-        NSString *filepath = [self dataFilePath:TRUE];
-        
-        //NSString *filepath = @"/Users/mac/Desktop/CellDataTest.xml";
-        
-        [myXML writeToFile:filepath atomically:YES encoding:NSUTF8StringEncoding error:NULL];
-    }
+        [myXML appendString:[NSString stringWithFormat:@"<CellData>\n<strVar>%@</strVar>\n<boolVar>%@</boolVar>\n<choiseVar>%d</choiseVar>\n<date>%@</date>\n</CellData>\n", cellData.stringVar, cellData.boolVar?@"YES":@"NO", cellData.choiseVar,[dateFormat stringFromDate:[cellData date]]]]; //заплить большую строку с кучей всех данных из CellDataArrray
+    
+    [myXML appendString:@"</CellDataArray>"];
+    [myXML writeToFile:filepath atomically:YES encoding:NSUTF8StringEncoding error:NULL];
+    
     [myXML release];
+    [dateFormat release];
 }
 @end

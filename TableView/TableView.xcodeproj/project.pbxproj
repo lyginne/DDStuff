@@ -170,8 +170,8 @@
 			children = (
 				849CEE25164ADB8F000C3B5B /* CellDataArray.xml */,
 				8493CE87164C0812007131C1 /* CellDataArray.sqlite */,
-				848F656F16406E3100B8F281 /* GDataXMLNode.h */,
 				848F657016406E3100B8F281 /* GDataXMLNode.m */,
+				848F656F16406E3100B8F281 /* GDataXMLNode.h */,
 				848C77971641A22A00317CB9 /* OperationsWithDataSource.h */,
 				848C77981641A22A00317CB9 /* OperationsWithDataSource.m */,
 				04911ACE164A7538002EFB74 /* DefaultParserDelegate.h */,
