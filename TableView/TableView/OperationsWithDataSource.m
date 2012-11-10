@@ -25,7 +25,7 @@
 
 +(void)saveCellDataArrayDOM;
 +(void)saveCellDataArrayDefault;
-//+(void)saveCellDataArraySQLite;
++(void)saveCellDataArraySQLITE;
 
 @end
 
@@ -41,6 +41,26 @@
     else
         return [[NSBundle mainBundle] pathForResource:@"CellDataArray" ofType:@"xml"];
 }
+
+
+
+
++(NSString *) dataFilePathSQLITE:(BOOL)forSave
+{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *documentsPath = [documentsDirectory stringByAppendingPathComponent:@"CellDataArraySQLITE.sqlite"];
+    if (forSave || [[NSFileManager defaultManager] fileExistsAtPath:documentsPath])
+        return documentsPath;
+    else
+        return [[NSBundle mainBundle] pathForResource:@"CellDataArraySQLITE" ofType:@"sqlite"];
+}
+
+
+
+
+
+
 
 + (void)loadData {
     
@@ -65,7 +85,8 @@
     
     switch ([[NSUserDefaults standardUserDefaults] integerForKey:@"data_source"]) {
         case 0:
-            //SQL
+            //SQLITE
+            [OperationsWithDataSource saveCellDataArraySQLITE];
             break;
             
         case 1:
@@ -130,7 +151,9 @@
     
     @try {
         NSFileManager *fileMGR = [NSFileManager defaultManager];
-        NSString *filepath = @"/Users/mac/Desktop/CellDataArray.sqlite";
+        
+        NSString *filepath = [self dataFilePathSQLITE:FALSE];
+        //NSString *filepath = @"/Users/mac/Desktop/CellDataArrayI.sqlite";
         
         BOOL success = [fileMGR fileExistsAtPath:filepath];
         
@@ -266,4 +289,105 @@
     [myXML release];
     [dateFormat release];
 }
+
+
+
++(void) saveCellDataArraySQLITE
+
+{
+    // strVar will be unique key
+    
+    sqlite3 *db = nil;
+    sqlite3_stmt *addStmt = nil;
+    char *error;
+    NSFileManager *fileMGR = [NSFileManager defaultManager];
+    NSString *filepath = [self dataFilePathSQLITE:FALSE];
+    //NSString *filepath = @"/Users/mac/Desktop/CellDataArrayI.sqlite";
+    
+    BOOL success = [fileMGR fileExistsAtPath:filepath];
+    
+    if (!success)
+    {
+        NSLog(@"Cannot delocate file %@", filepath);
+    }
+    
+    if ((!sqlite3_open([filepath UTF8String], &db) == SQLITE_OK))
+    {
+        NSLog(@"ERROR HERE! %s,", sqlite3_errmsg(db));
+    }
+    
+    
+    // deleting all cell's
+    const char *delete = "DELETE FROM CellDataArraySQLITE";
+    if (sqlite3_exec(db, delete, 0, 0, &error))
+    {
+        NSLog(@"ERROR while deleting %s", error);
+    }
+    
+    
+    // save
+    for(CellData *cellData in [CellDataArray getArray]) {
+        
+        const char *insert = "INSERT INTO CellDataArraySQLITE(strVar,boolVar, choiseVar, date, image)VALUES(?, ?, ?, ?, ?)";
+        if (sqlite3_prepare_v2(db, insert, -1, &addStmt, nil))
+        {
+            NSLog(@"ERROR WHILE PREPARING");
+        }
+        
+        
+        sqlite3_bind_text(addStmt, 1, [cellData.stringVar UTF8String], -1, SQLITE_TRANSIENT);
+        NSString *bools = [[NSString alloc] init];
+        if (cellData.boolVar = YES)
+        {
+            bools = [NSString stringWithFormat:@"YES"];
+            
+        }
+        else
+        {
+            bools = [NSString stringWithFormat:@"NO"];
+        }
+        
+        
+        sqlite3_bind_text(addStmt, 2,[bools UTF8String], -1, SQLITE_TRANSIENT);
+        
+        
+        sqlite3_bind_int(addStmt, 3, cellData.choiseVar);
+        
+        
+        NSString *dates = [NSString stringWithFormat:@"%@", cellData.date];
+        NSString *date = [dates substringToIndex:10];
+        sqlite3_bind_text(addStmt, 4,[date UTF8String], -1, SQLITE_TRANSIENT);
+        
+        
+        NSData *image = UIImagePNGRepresentation(cellData.image);
+        sqlite3_bind_blob(addStmt, 5, [image bytes], [image length], SQLITE_TRANSIENT);
+        
+        
+        
+        
+        
+        
+        
+        insert = nil;
+        bools = nil;
+        dates = nil;
+        [bools release];
+        sqlite3_step(addStmt);
+        sqlite3_finalize(addStmt);
+        
+        
+        
+        
+    }
+    
+    
+}
+
+
+
+
+
+
+
+
 @end
