@@ -74,8 +74,11 @@ static NSInteger masterSelectIndex, editSelectIndexRow;
     _date=[CellDataArray objectInArrayAtIndex:masterSelectIndex].date;
     [_date retain];
     [self renewTitleOnButton];
-    imageView.image=[CellDataArray objectInArrayAtIndex:masterSelectIndex].image;
-
+    //imageView.image=[CellDataArray objectInArrayAtIndex:masterSelectIndex].image;
+    if([CellDataArray objectInArrayAtIndex:masterSelectIndex].image)
+        imageView.image=[CellDataArray objectInArrayAtIndex:masterSelectIndex].image;
+    else
+        imageView.image=[UIImage imageNamed:@"N0.png"];
     
 }                                  
                             
@@ -105,8 +108,10 @@ static NSInteger masterSelectIndex, editSelectIndexRow;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
+    cell.selectionStyle=UITableViewCellSelectionStyleNone;
     cell.accessoryType = UITableViewCellAccessoryNone;
-    if ([indexPath row] == editSelectIndexRow)
+
+    if (([indexPath row] == editSelectIndexRow)&& [indexPath section] ==2)
     {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
     }

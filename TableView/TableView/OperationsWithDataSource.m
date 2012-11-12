@@ -12,6 +12,7 @@
 #import "CellData.h"
 #import "DefaultParserDelegate.h"
 #import <sqlite3.h>
+#import "NSData+Base64.h"
 
 @interface OperationsWithDataSource (Loaders)
 
@@ -42,9 +43,6 @@
         return [[NSBundle mainBundle] pathForResource:@"CellDataArray" ofType:@"xml"];
 }
 
-
-
-
 +(NSString *) dataFilePathSQLITE:(BOOL)forSave
 {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -55,12 +53,6 @@
     else
         return [[NSBundle mainBundle] pathForResource:@"CellDataArraySQLITE" ofType:@"sqlite"];
 }
-
-
-
-
-
-
 
 + (void)loadData {
     
@@ -121,8 +113,11 @@
         [cellData setBoolVar:[[[[cellDataElement elementsForName:@"boolVar"] objectAtIndex:0] stringValue] boolValue]];
         [cellData setChoiseVar:[[[[cellDataElement elementsForName:@"choiseVar"] objectAtIndex:0] stringValue] integerValue]];     
         [cellData setDate:[dateFormat dateFromString:[[[cellDataElement elementsForName:@"date"] objectAtIndex:0] stringValue]]];
+        NSString *imgString=[[[cellDataElement elementsForName:@"img"]objectAtIndex:0]stringValue];
+        NSData *data=[NSData dataFromBase64String:imgString];
+        cellData.image=[UIImage imageWithData:data];
         [CellDataArray addInArrayCellData:cellData];
-        [cellData release];
+        [cellData release];        
     }
     [dateFormat release];
     [doc release];
@@ -256,11 +251,17 @@
         GDataXMLElement * dateElement =
         [GDataXMLNode elementWithName:@"date"
                           stringValue:[dateFormat stringFromDate:[cellData date]]];
+        NSData *data = UIImagePNGRepresentation([cellData image]);
+        NSString *result=[data base64EncodedString];
+        GDataXMLElement *imgElement =
+        [GDataXMLNode elementWithName:@"img"
+                          stringValue:result];
         
         [cellDataElement addChild:strVarElement];
         [cellDataElement addChild:boolVarElement];
         [cellDataElement addChild:choiseVarElement];
         [cellDataElement addChild:dateElement];
+        [cellDataElement addChild:imgElement];
         [cellDataArrayElement addChild:cellDataElement];
         [dateFormat release];
     }
@@ -281,8 +282,11 @@
     NSDateFormatter *dateFormat=[[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:@"yyyy-MM-dd"];
     for (CellData *cellData in [CellDataArray getArray])
-        [myXML appendString:[NSString stringWithFormat:@"<CellData>\n<strVar>%@</strVar>\n<boolVar>%@</boolVar>\n<choiseVar>%d</choiseVar>\n<date>%@</date>\n</CellData>\n", cellData.stringVar, cellData.boolVar?@"YES":@"NO", cellData.choiseVar,[dateFormat stringFromDate:[cellData date]]]]; //заплить большую строку с кучей всех данных из CellDataArrray
-    
+    {
+        NSData *data = UIImagePNGRepresentation([cellData image]);
+        NSString *result=[data base64EncodedString];
+        [myXML appendString:[NSString stringWithFormat:@"<CellData>\n<strVar>%@</strVar>\n<boolVar>%@</boolVar>\n<choiseVar>%d</choiseVar>\n<date>%@</date>\n<img>%@</img>\n</CellData>\n", cellData.stringVar, cellData.boolVar?@"YES":@"NO", cellData.choiseVar,[dateFormat stringFromDate:[cellData date]], result]]; //заплить большую строку с кучей всех данных из CellDataArrray
+    }
     [myXML appendString:@"</CellDataArray>"];
     [myXML writeToFile:filepath atomically:YES encoding:NSUTF8StringEncoding error:NULL];
     

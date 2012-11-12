@@ -25,7 +25,10 @@
 		848E34D716493B2F00E8547A /* EditDateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 848E34D616493B2F00E8547A /* EditDateViewController.m */; };
 		848F657116406E3100B8F281 /* GDataXMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 848F657016406E3100B8F281 /* GDataXMLNode.m */; };
 		8491B58F163EF1DD00111059 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8491B58E163EF1DD00111059 /* Settings.bundle */; };
+		8495E78216516962007F973E /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 8495E781165168BC007F973E /* NSData+Base64.m */; };
 		849CEE26164ADB8F000C3B5B /* CellDataArray.xml in Resources */ = {isa = PBXBuildFile; fileRef = 849CEE25164ADB8F000C3B5B /* CellDataArray.xml */; };
+		84C12AD816513D00001C797D /* N0.png in Resources */ = {isa = PBXBuildFile; fileRef = 84C12AD716513D00001C797D /* N0.png */; };
+		84F8B7BD1651392E00CB1BAB /* no.png in Resources */ = {isa = PBXBuildFile; fileRef = 84F8B7BB165137CC00CB1BAB /* no.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,7 +64,11 @@
 		848F657016406E3100B8F281 /* GDataXMLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDataXMLNode.m; sourceTree = "<group>"; };
 		8491B58E163EF1DD00111059 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		8493CE87164C0812007131C1 /* CellDataArray.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = CellDataArray.sqlite; sourceTree = "<group>"; };
+		8495E780165168BC007F973E /* NSData+Base64.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
+		8495E781165168BC007F973E /* NSData+Base64.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
 		849CEE25164ADB8F000C3B5B /* CellDataArray.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = CellDataArray.xml; sourceTree = "<group>"; };
+		84C12AD716513D00001C797D /* N0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = N0.png; path = TableView/N0.png; sourceTree = "<group>"; };
+		84F8B7BB165137CC00CB1BAB /* no.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = no.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +89,8 @@
 		048F727E163772DF000BF5BC = {
 			isa = PBXGroup;
 			children = (
+				84F8B7BB165137CC00CB1BAB /* no.png */,
+				84C12AD716513D00001C797D /* N0.png */,
 				04838DB7164BC9EF00145470 /* libsqlite3.dylib */,
 				048F7293163772DF000BF5BC /* TableView */,
 				048F728C163772DF000BF5BC /* Frameworks */,
@@ -170,6 +179,8 @@
 			children = (
 				849CEE25164ADB8F000C3B5B /* CellDataArray.xml */,
 				8493CE87164C0812007131C1 /* CellDataArray.sqlite */,
+				8495E780165168BC007F973E /* NSData+Base64.h */,
+				8495E781165168BC007F973E /* NSData+Base64.m */,
 				848F657016406E3100B8F281 /* GDataXMLNode.m */,
 				848F656F16406E3100B8F281 /* GDataXMLNode.h */,
 				848C77971641A22A00317CB9 /* OperationsWithDataSource.h */,
@@ -240,10 +251,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84F8B7BD1651392E00CB1BAB /* no.png in Resources */,
 				048F7298163772DF000BF5BC /* InfoPlist.strings in Resources */,
 				048F72A1163772DF000BF5BC /* MainStoryboard.storyboard in Resources */,
 				8491B58F163EF1DD00111059 /* Settings.bundle in Resources */,
 				849CEE26164ADB8F000C3B5B /* CellDataArray.xml in Resources */,
+				84C12AD816513D00001C797D /* N0.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,6 +271,7 @@
 				048F729E163772DF000BF5BC /* AppDelegate.m in Sources */,
 				048F72B016377337000BF5BC /* MasterViewController.m in Sources */,
 				048F72B316377376000BF5BC /* CellData.m in Sources */,
+				8495E78216516962007F973E /* NSData+Base64.m in Sources */,
 				048F72B6163773BC000BF5BC /* CellDataArray.m in Sources */,
 				04887C7B1637DE9F004EC5B3 /* Cell.m in Sources */,
 				04887C7F1637ED89004EC5B3 /* EditViewController.m in Sources */,

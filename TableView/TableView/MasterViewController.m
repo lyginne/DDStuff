@@ -64,13 +64,13 @@
     cell.boolVarSwitch.on=cellDataAtIndex.boolVar;
     switch (cellDataAtIndex.choiseVar) {
         case FIRST_CHOISE:
-            cell.choiseVarString.text=@"First Choise";
+            cell.choiseVarString.text=@"Болен";
             break;
         case SECOND_CHOISE:
-            cell.choiseVarString.text=@"Second Choise";
+            cell.choiseVarString.text=@"Выздоровел";
             break;
         case THIRD_CHOISE:
-            cell.choiseVarString.text=@"Third Choise";
+            cell.choiseVarString.text=@"Умер";
             break;
             
         default:
@@ -78,11 +78,16 @@
             break;
             
     }
+
     NSDateFormatter *dateFormat=[[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:@"yyyy-MM-dd"];
     cell.dateLabel.text=[dateFormat stringFromDate:cellDataAtIndex.date];
     [dateFormat release];
-    cell.MyimageView.image=cellDataAtIndex.image;
+    
+    if(cellDataAtIndex.image)
+        cell.MyimageView.image=cellDataAtIndex.image;
+    else
+        cell.MyimageView.image=[UIImage imageNamed:@"N0.png"];
     cell.MyimageView.contentMode=UIViewContentModeScaleAspectFit;
     return cell;
 }

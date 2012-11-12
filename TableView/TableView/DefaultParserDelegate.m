@@ -9,10 +9,11 @@
 #import "DefaultParserDelegate.h"
 #import "CellDataArray.h"
 #import "CellData.h"
+#import "NSData+Base64.h"
 
 @implementation DefaultParserDelegate {
     
-    NSString *_bufferString;
+    NSMutableString *_bufferString;
     CellData *cell;
 }
 
@@ -29,8 +30,9 @@ didStartElement:(NSString *)elementName
 -(void) parser: (NSXMLParser *)parser
 foundCharacters:(NSString *)string{
     
-    [_bufferString release];
-    _bufferString=[string copy];
+    if(!_bufferString)
+        _bufferString=[[NSMutableString alloc] init];
+    [_bufferString appendString:string];
 }
 
 -(void) parser:(NSXMLParser *) paser
@@ -51,6 +53,11 @@ foundCharacters:(NSString *)string{
         [dateFormat setDateFormat:@"YYYY-MM-dd"];
         cell.date = [dateFormat dateFromString:str];
         [dateFormat release];
+    }
+    if ([elementName isEqualToString:@"img"])
+    {
+        NSData *data=[NSData dataFromBase64String:_bufferString];
+        cell.image=[UIImage imageWithData:data];
     }
     if ([elementName isEqualToString:@"CellData"])
     {
