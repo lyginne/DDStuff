@@ -340,15 +340,15 @@
         
         
         sqlite3_bind_text(addStmt, 1, [cellData.stringVar UTF8String], -1, SQLITE_TRANSIENT);
-        NSString *bools = [[NSString alloc] init];
+        NSString *bools;
         if (cellData.boolVar = YES)
         {
-            bools = [NSString stringWithFormat:@"YES"];
+            bools = @"YES";
             
         }
         else
         {
-            bools = [NSString stringWithFormat:@"NO"];
+            bools = @"NO";
         }
         
         

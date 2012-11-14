@@ -15,8 +15,8 @@
 -(id) init
 {
     self=[super init];
-    self.stringVar=@"DefaultString";
-    self.boolVar=YES;
+    self.stringVar=nil;
+    self.boolVar=NO;
     self.choiseVar=0;
     self.date=[NSDate dateWithTimeIntervalSinceNow:0];
     return self;

@@ -25,6 +25,8 @@ didStartElement:(NSString *)elementName
     
     if ([elementName isEqualToString:@"CellData"])        
         cell = [[CellData alloc] init];
+    [_bufferString release];
+    _bufferString=nil;
 }
 
 -(void) parser: (NSXMLParser *)parser
