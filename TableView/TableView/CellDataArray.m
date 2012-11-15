@@ -18,6 +18,7 @@
 @implementation CellDataArray
 
 static NSMutableArray *cellDataArray;
+
 +(NSMutableArray *)getArray
 {
     return cellDataArray;
@@ -61,8 +62,8 @@ static NSMutableArray *cellDataArray;
     return [cellDataArray objectAtIndex:theIndex];
 }
 
-+(void) dealloc
-{
++(void) dealloc{
+    
     [cellDataArray release];
     [super dealloc];
 }

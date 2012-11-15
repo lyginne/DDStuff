@@ -47,47 +47,49 @@
 {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *documentsPath = [documentsDirectory stringByAppendingPathComponent:@"CellDataArraySQLITE.sqlite"];
+    NSString *documentsPath = [documentsDirectory stringByAppendingPathComponent:@"CellData.sqlite"];
     if (forSave || [[NSFileManager defaultManager] fileExistsAtPath:documentsPath])
         return documentsPath;
     else
-        return [[NSBundle mainBundle] pathForResource:@"CellDataArraySQLITE" ofType:@"sqlite"];
+        return [[NSBundle mainBundle] pathForResource:@"CellDataArray" ofType:@"sqlite"];
 }
 
 + (void)loadData {
-    
-    switch ([[NSUserDefaults standardUserDefaults] integerForKey:@"data_source"]) {
-        case 0:
-            //SQL
-            [OperationsWithDataSource loadCellDataArraySQLITE];
-            break;
+    @autoreleasepool {
+        switch ([[NSUserDefaults standardUserDefaults] integerForKey:@"data_source"]) {
+            case 0:
+                //SQL
+                [OperationsWithDataSource loadCellDataArraySQLITE];
+                break;
             
-        case 1:
-            //parseDefault
-            [OperationsWithDataSource loadCellDataArrayDefault];
-            break;
+            case 1:
+                //parseDefault
+                [OperationsWithDataSource loadCellDataArrayDefault];
+                break;
             
-        case 2:
-            //parseDOM
-            [OperationsWithDataSource loadCellDataArrayDOM];
+            case 2:
+                //parseDOM
+                [OperationsWithDataSource loadCellDataArrayDOM];
+        }
     }
 }
 
 + (void)saveData {
-    
-    switch ([[NSUserDefaults standardUserDefaults] integerForKey:@"data_source"]) {
-        case 0:
-            //SQLITE
-            [OperationsWithDataSource saveCellDataArraySQLITE];
-            break;
+    @autoreleasepool {
+        switch ([[NSUserDefaults standardUserDefaults] integerForKey:@"data_source"]) {
+            case 0:
+                //SQLITE
+                [OperationsWithDataSource saveCellDataArraySQLITE];
+                break;
             
-        case 1:
-            [OperationsWithDataSource saveCellDataArrayDefault];
-            break;
+            case 1:
+                [OperationsWithDataSource saveCellDataArrayDefault];
+                break;
             
-        case 2:
-            //parseDOM
-            [OperationsWithDataSource saveCellDataArrayDOM];
+            case 2:
+                //parseDOM
+                [OperationsWithDataSource saveCellDataArrayDOM];
+        }
     }
     
 }
@@ -140,93 +142,42 @@
 
 +(void) loadCellDataArraySQLITE
 {
-    
     sqlite3 *db;
     
+    NSDateFormatter *dateFormat=[[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"yyyy-MM-dd"];
     
-    @try {
-        NSFileManager *fileMGR = [NSFileManager defaultManager];
-        
-        NSString *filepath = [self dataFilePathSQLITE:FALSE];
-        //NSString *filepath = @"/Users/mac/Desktop/CellDataArrayI.sqlite";
-        
-        BOOL success = [fileMGR fileExistsAtPath:filepath];
-        
-        if (!success)
-        {
-            NSLog(@"Cannot delocate file %@", filepath);
-        }
-        
-        if ((!sqlite3_open([filepath UTF8String], &db) == SQLITE_OK))
-        {
-            NSLog(@"ERROR HERE! %s,", sqlite3_errmsg(db));
-        }
-        
-        
-        
-        const char *sql = "SELECT * FROM CellDataArraySQLITE";
-        sqlite3_stmt *sqlStatement;
-        
-        if(sqlite3_prepare(db, sql, -1, &sqlStatement, NULL)!= SQLITE_OK)
-        {
-            NSLog(@"PRoblem with statement %s", sqlite3_errmsg(db));
-            
-        }
-        
-        
-        
-        else
-        {
-            while (sqlite3_step(sqlStatement) == SQLITE_ROW)
-            {
-                CellData *cell = [[CellData alloc] init];
-                cell.stringVar = [NSString stringWithUTF8String:(char *) sqlite3_column_text(sqlStatement, 0)];
-                cell.boolVar = [[NSString stringWithUTF8String:(char *) sqlite3_column_text(sqlStatement, 1)]boolValue];
-                cell.choiseVar =  [[NSString stringWithUTF8String:(char *) sqlite3_column_text(sqlStatement, 2)]intValue];
+    NSString *filepath = [self dataFilePathSQLITE:FALSE];
+    
+    if ((!sqlite3_open([filepath UTF8String], &db) == SQLITE_OK))
+        NSLog(@"ERROR HERE! %s,", sqlite3_errmsg(db));
+    
+    const char *sql = "SELECT * FROM CellData";
+    sqlite3_stmt *sqlStatement;
+    
+    if(sqlite3_prepare(db, sql, -1, &sqlStatement, NULL)!= SQLITE_OK)
+        NSLog(@"PRoblem with statement %s", sqlite3_errmsg(db));
+    
+    while (sqlite3_step(sqlStatement) == SQLITE_ROW)
+    {
+        CellData *cell = [[CellData alloc] init];
+        cell.stringVar = [NSString stringWithUTF8String:(char *) sqlite3_column_text(sqlStatement, 0)];
+        cell.boolVar = [[NSString stringWithUTF8String:(char *) sqlite3_column_text(sqlStatement, 1)]boolValue];
+        cell.choiseVar =  [[NSString stringWithUTF8String:(char *) sqlite3_column_text(sqlStatement, 2)]intValue];
                 
-                NSString *str = [NSString stringWithString:[NSString stringWithUTF8String:(char *) sqlite3_column_text(sqlStatement, 3)]];
-                NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-                [dateFormat setDateFormat:@"YYYY-MM-dd"];
+        NSString *str = [NSString stringWithUTF8String:(char *) sqlite3_column_text(sqlStatement, 3)];         
+        NSDate *date = [dateFormat dateFromString:str];
+        cell.date = date;
+        const char *raw = sqlite3_column_blob(sqlStatement, 4);
+        int rawLen = sqlite3_column_bytes(sqlStatement, 4);
+        NSData *data = [NSData dataWithBytes:raw length:rawLen];
+        cell.image = [[UIImage alloc] initWithData:data];
+        [CellDataArray addInArrayCellData:cell];
+        [cell release];
                 
-                NSDate *date = [dateFormat dateFromString:str];
-                cell.date = date;
-                [dateFormat release];
-                
-                
-                
-                
-                
-                const char *raw = sqlite3_column_blob(sqlStatement, 4);
-                int rawLen = sqlite3_column_bytes(sqlStatement, 4);
-                NSData *data = [NSData dataWithBytes:raw length:rawLen];
-                cell.image = [[UIImage alloc] initWithData:data];
-                
-                
-                [CellDataArray addInArrayCellData:cell];
-                [cell release];
-                
-            }
-            
-            
-            
-            
-            
-            
-            
-            
-        }
     }
-    @catch (NSException *exception) {
-        NSLog(@"Problem with prepare statement %s", sqlite3_errmsg(db));
-    }
-    @finally {
-        sqlite3_close(db);
-    }
-    
-    
-    
-    
-    
+    [dateFormat release];
+    sqlite3_close(db);    
 }
 // -----------------------------Savers------------------
 
@@ -299,99 +250,49 @@
 +(void) saveCellDataArraySQLITE
 
 {
-    // strVar will be unique key
+    char *err = 0;
+    sqlite3 *db = 0;
+    const char *dbPath = [[self dataFilePathSQLITE:YES] UTF8String];
     
-    sqlite3 *db = nil;
-    sqlite3_stmt *addStmt = nil;
-    char *error;
-    NSFileManager *fileMGR = [NSFileManager defaultManager];
-    NSString *filepath = [self dataFilePathSQLITE:FALSE];
-    //NSString *filepath = @"/Users/mac/Desktop/CellDataArrayI.sqlite";
+    if (sqlite3_open(dbPath, &db))
+        NSLog(@"DB: open error");
+    const char *dropTable="DROP TABLE CellData";
+    if (sqlite3_exec(db, dropTable, nil, nil, &err)) {
+        NSLog(@"%s", err);
+        sqlite3_free(err);
+    }
+    const char *createTable = "CREATE TABLE CellData (strVar VARCHAR, boolVar VARCHAR, choiseVar INTEGER, date VARCHAR, image BLOB);";
     
-    BOOL success = [fileMGR fileExistsAtPath:filepath];
-    
-    if (!success)
+    if (sqlite3_exec(db, createTable, nil, nil, &err)) {
+        NSLog(@"%s", err);
+        sqlite3_free(err);
+    }
+    NSDateFormatter *dateFormat=[[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"yyyy-MM-dd"];
+    for (CellData *cell in [CellDataArray getArray])
     {
-        NSLog(@"Cannot delocate file %@", filepath);
+        char *title = (char *)[cell.stringVar UTF8String];
+        char *dateString = (char *)[[dateFormat stringFromDate:cell.date] UTF8String];
+        char *boolVarString = (char *)[cell.boolVar?@"YES":@"NO" UTF8String];
+        NSData *image = UIImagePNGRepresentation(cell.image);
+    
+        const char *insertNewCell = "INSERT INTO CellData VALUES(?, ?, ?, ?, ?)";
+        sqlite3_stmt *insertStatement;
+        if(sqlite3_prepare_v2(db, insertNewCell, -1, &insertStatement, nil))
+            NSLog(@"Add: prepare error");
+    
+        sqlite3_bind_text(insertStatement, 1, title, strlen(title), SQLITE_TRANSIENT);
+        sqlite3_bind_text(insertStatement, 2, boolVarString, strlen(boolVarString), SQLITE_TRANSIENT);
+        sqlite3_bind_int(insertStatement, 3, cell.choiseVar);
+        sqlite3_bind_text(insertStatement, 4, dateString, strlen(dateString), SQLITE_TRANSIENT);
+        sqlite3_bind_blob(insertStatement, 5, [image bytes], [image length], SQLITE_TRANSIENT);
+    
+    
+        sqlite3_step(insertStatement);
+        sqlite3_finalize(insertStatement);
     }
-    
-    if ((!sqlite3_open([filepath UTF8String], &db) == SQLITE_OK))
-    {
-        NSLog(@"ERROR HERE! %s,", sqlite3_errmsg(db));
-    }
-    
-    
-    // deleting all cell's
-    const char *delete = "DELETE FROM CellDataArraySQLITE";
-    if (sqlite3_exec(db, delete, 0, 0, &error))
-    {
-        NSLog(@"ERROR while deleting %s", error);
-    }
-    
-    
-    // save
-    for(CellData *cellData in [CellDataArray getArray]) {
-        
-        const char *insert = "INSERT INTO CellDataArraySQLITE(strVar,boolVar, choiseVar, date, image)VALUES(?, ?, ?, ?, ?)";
-        if (sqlite3_prepare_v2(db, insert, -1, &addStmt, nil))
-        {
-            NSLog(@"ERROR WHILE PREPARING");
-        }
-        
-        
-        sqlite3_bind_text(addStmt, 1, [cellData.stringVar UTF8String], -1, SQLITE_TRANSIENT);
-        NSString *bools;
-        if (cellData.boolVar = YES)
-        {
-            bools = @"YES";
-            
-        }
-        else
-        {
-            bools = @"NO";
-        }
-        
-        
-        sqlite3_bind_text(addStmt, 2,[bools UTF8String], -1, SQLITE_TRANSIENT);
-        
-        
-        sqlite3_bind_int(addStmt, 3, cellData.choiseVar);
-        
-        
-        NSString *dates = [NSString stringWithFormat:@"%@", cellData.date];
-        NSString *date = [dates substringToIndex:10];
-        sqlite3_bind_text(addStmt, 4,[date UTF8String], -1, SQLITE_TRANSIENT);
-        
-        
-        NSData *image = UIImagePNGRepresentation(cellData.image);
-        sqlite3_bind_blob(addStmt, 5, [image bytes], [image length], SQLITE_TRANSIENT);
-        
-        
-        
-        
-        
-        
-        
-        insert = nil;
-        bools = nil;
-        dates = nil;
-        [bools release];
-        sqlite3_step(addStmt);
-        sqlite3_finalize(addStmt);
-        
-        
-        
-        
-    }
-    
-    
+    if (sqlite3_close(db))
+        NSLog(@"DB: close error");
 }
-
-
-
-
-
-
-
 
 @end

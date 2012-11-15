@@ -14,6 +14,7 @@
 @synthesize choiseVarString;
 @synthesize boolVarSwitch;
 @synthesize dateLabel;
+@synthesize imageView;
 
 -(void)dealloc
 {
@@ -21,6 +22,7 @@
     [choiseVarString release];
     [boolVarSwitch release];
     [dateLabel release];
+    [imageView release];
     [super dealloc];
     
 }
