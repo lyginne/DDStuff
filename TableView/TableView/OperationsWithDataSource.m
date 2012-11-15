@@ -45,12 +45,12 @@
 
 +(NSString *) dataFilePathSQLITE:(BOOL)forSave
 {
-//    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-//    NSString *documentsDirectory = [paths objectAtIndex:0];
-//    NSString *documentsPath = [documentsDirectory stringByAppendingPathComponent:@"CellData.sqlite"];
-//    if (forSave || [[NSFileManager defaultManager] fileExistsAtPath:documentsPath])
-//        return documentsPath;
-//    else
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *documentsPath = [documentsDirectory stringByAppendingPathComponent:@"CellData.sqlite"];
+    if (forSave || [[NSFileManager defaultManager] fileExistsAtPath:documentsPath])
+        return documentsPath;
+    else
         return [[NSBundle mainBundle] pathForResource:@"CellDataArray" ofType:@"sqlite"];
 }
 
