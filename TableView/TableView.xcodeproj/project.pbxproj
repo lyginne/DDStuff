@@ -23,6 +23,7 @@
 		04911AD0164A7539002EFB74 /* DefaultParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04911ACF164A7539002EFB74 /* DefaultParserDelegate.m */; };
 		848C77991641A22A00317CB9 /* OperationsWithDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 848C77981641A22A00317CB9 /* OperationsWithDataSource.m */; };
 		848E34D716493B2F00E8547A /* EditDateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 848E34D616493B2F00E8547A /* EditDateViewController.m */; };
+		848E6114165475250041B4E9 /* CellDataArray.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 8493CE87164C0812007131C1 /* CellDataArray.sqlite */; };
 		848F657116406E3100B8F281 /* GDataXMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 848F657016406E3100B8F281 /* GDataXMLNode.m */; };
 		8491B58F163EF1DD00111059 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8491B58E163EF1DD00111059 /* Settings.bundle */; };
 		8495E78216516962007F973E /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 8495E781165168BC007F973E /* NSData+Base64.m */; };
@@ -254,6 +255,7 @@
 				84F8B7BD1651392E00CB1BAB /* no.png in Resources */,
 				048F7298163772DF000BF5BC /* InfoPlist.strings in Resources */,
 				048F72A1163772DF000BF5BC /* MainStoryboard.storyboard in Resources */,
+				848E6114165475250041B4E9 /* CellDataArray.sqlite in Resources */,
 				8491B58F163EF1DD00111059 /* Settings.bundle in Resources */,
 				849CEE26164ADB8F000C3B5B /* CellDataArray.xml in Resources */,
 				84C12AD816513D00001C797D /* N0.png in Resources */,
