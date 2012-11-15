@@ -271,7 +271,7 @@
     [dateFormat setDateFormat:@"yyyy-MM-dd"];
     for (CellData *cell in [CellDataArray getArray])
     {
-        char *title = (char *)[cell.stringVar UTF8String];
+        char *strVar = (char *)[cell.stringVar UTF8String];
         char *dateString = (char *)[[dateFormat stringFromDate:cell.date] UTF8String];
         char *boolVarString = (char *)[cell.boolVar?@"YES":@"NO" UTF8String];
         NSData *image = UIImagePNGRepresentation(cell.image);
@@ -280,8 +280,10 @@
         sqlite3_stmt *insertStatement;
         if(sqlite3_prepare_v2(db, insertNewCell, -1, &insertStatement, nil))
             NSLog(@"Add: prepare error");
-    
-        sqlite3_bind_text(insertStatement, 1, title, strlen(title), SQLITE_TRANSIENT);
+        if (strVar!=nil)
+        {
+            sqlite3_bind_text(insertStatement, 1, strVar, strlen(strVar), SQLITE_TRANSIENT);  
+        }
         sqlite3_bind_text(insertStatement, 2, boolVarString, strlen(boolVarString), SQLITE_TRANSIENT);
         sqlite3_bind_int(insertStatement, 3, cell.choiseVar);
         sqlite3_bind_text(insertStatement, 4, dateString, strlen(dateString), SQLITE_TRANSIENT);
