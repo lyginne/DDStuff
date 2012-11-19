@@ -43,7 +43,14 @@ foundCharacters:(NSString *)string{
  qualifiedName:(NSString *)qName{    
     
     if ([elementName isEqualToString:@"strVar"])
-        cell.stringVar=_bufferString;
+    {
+        if([_bufferString isEqualToString:@"(null)"]) {
+           cell.stringVar=nil; 
+        }
+        else {
+            cell.stringVar=_bufferString;
+        }
+    }
     if ([elementName isEqualToString:@"boolVar"])
         cell.boolVar = [_bufferString boolValue];
     if ([elementName isEqualToString:@"choiseVar"])

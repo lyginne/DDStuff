@@ -111,7 +111,11 @@
     for (GDataXMLElement *cellDataElement in cellDataElements)
     {
         CellData *cellData = [[CellData alloc] init];
-        [cellData setStringVar:[[[cellDataElement  elementsForName:@"strVar"] objectAtIndex:0] stringValue]];
+        NSString *stringVar;
+        if([stringVar=[[[cellDataElement  elementsForName:@"strVar"] objectAtIndex:0] stringValue] isEqualToString:@"(null)"])
+            [cellData setStringVar:nil];
+        else
+            [cellData setStringVar:stringVar];
         [cellData setBoolVar:[[[[cellDataElement elementsForName:@"boolVar"] objectAtIndex:0] stringValue] boolValue]];
         [cellData setChoiseVar:[[[[cellDataElement elementsForName:@"choiseVar"] objectAtIndex:0] stringValue] integerValue]];     
         [cellData setDate:[dateFormat dateFromString:[[[cellDataElement elementsForName:@"date"] objectAtIndex:0] stringValue]]];
@@ -171,9 +175,11 @@
         const char *raw = sqlite3_column_blob(sqlStatement, 4);
         int rawLen = sqlite3_column_bytes(sqlStatement, 4);
         NSData *data = [NSData dataWithBytes:raw length:rawLen];
-        cell.image = [[UIImage alloc] initWithData:data];
+        UIImage *image = [[UIImage alloc] initWithData:data];
+        cell.image=image;
         [CellDataArray addInArrayCellData:cell];
         [cell release];
+        [image release];
                 
     }
     [dateFormat release];
@@ -256,8 +262,8 @@
     
     if (sqlite3_open(dbPath, &db))
         NSLog(@"DB: open error");
-    const char *dropTable="DROP TABLE CellData";
-    if (sqlite3_exec(db, dropTable, nil, nil, &err)) {
+    const char *deleteTable="DELETE FROM CellData";
+    if (sqlite3_exec(db, deleteTable, nil, nil, &err)) {
         NSLog(@"%s", err);
         sqlite3_free(err);
     }
@@ -295,6 +301,7 @@
     }
     if (sqlite3_close(db))
         NSLog(@"DB: close error");
+    [dateFormat release];
 }
 
 @end
