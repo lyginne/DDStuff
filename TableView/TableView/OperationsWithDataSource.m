@@ -262,7 +262,7 @@
     
     if (sqlite3_open(dbPath, &db))
         NSLog(@"DB: open error");
-    const char *deleteTable="DELETE FROM CellData";
+    const char *deleteTable="DELETE FROM CellData;";
     if (sqlite3_exec(db, deleteTable, nil, nil, &err)) {
         NSLog(@"%s", err);
         sqlite3_free(err);
@@ -282,7 +282,7 @@
         char *boolVarString = (char *)[cell.boolVar?@"YES":@"NO" UTF8String];
         NSData *image = UIImagePNGRepresentation(cell.image);
     
-        const char *insertNewCell = "INSERT INTO CellData VALUES(?, ?, ?, ?, ?)";
+        const char *insertNewCell = "INSERT INTO CellData VALUES(?, ?, ?, ?, ?);";
         sqlite3_stmt *insertStatement;
         if(sqlite3_prepare_v2(db, insertNewCell, -1, &insertStatement, nil))
             NSLog(@"Add: prepare error");
