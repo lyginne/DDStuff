@@ -165,7 +165,10 @@
     while (sqlite3_step(sqlStatement) == SQLITE_ROW)
     {
         CellData *cell = [[CellData alloc] init];
-        cell.stringVar = [NSString stringWithUTF8String:(char *) sqlite3_column_text(sqlStatement, 0)];
+        char * stvar=(char *) sqlite3_column_text(sqlStatement, 0);
+        if (stvar){
+            cell.stringVar = [NSString stringWithUTF8String:stvar];
+        }
         cell.boolVar = [[NSString stringWithUTF8String:(char *) sqlite3_column_text(sqlStatement, 1)]boolValue];
         cell.choiseVar =  [[NSString stringWithUTF8String:(char *) sqlite3_column_text(sqlStatement, 2)]intValue];
                 
